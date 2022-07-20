@@ -1,5 +1,5 @@
 import unittest
-from httpRequest import get, post
+from http_request import get, post
 
 
 class TestHttpBin(unittest.TestCase):
