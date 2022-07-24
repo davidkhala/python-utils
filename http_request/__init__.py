@@ -3,7 +3,7 @@ from requests.auth import HTTPBasicAuth
 
 
 class Request:
-    def __init__(self, url, auth=None):
+    def __init__(self, url, auth: dict = None):
         self.url = url
         if auth is not None:
             self.auth = HTTPBasicAuth(auth['username'], auth['password'])
