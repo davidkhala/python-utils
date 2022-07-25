@@ -35,6 +35,15 @@ class TestHttpBin(unittest.TestCase):
         r = request.post(payload)
         print(r)
 
+    def test_upload(self):
+        url = 'https://httpbin.org/post'
+
+        with open(rb'dummy.txt') as f:
+            files = {'file': f.read()}
+        request = Request(url)
+        r = request.post(None, files)
+        print(r)
+
 
 if __name__ == '__main__':
     unittest.main()
