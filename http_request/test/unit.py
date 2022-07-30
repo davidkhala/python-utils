@@ -10,7 +10,6 @@ class TestHttpBin(unittest.TestCase):
         print('Your IP is {0}'.format(response['origin']))
 
     def test_basic_auth(self):
-        #     /basic-auth/{user}/{passwd}
         url = 'https://httpbin.org/basic-auth/username/password'
         auth = {
             'username': 'username',
