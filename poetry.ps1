@@ -3,7 +3,7 @@ function Install-Poetry {
   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force
   (Invoke-WebRequest -Uri https://raw.githubusercontent.com/davidkhala/windows-utils/master/powershell.ps1 -UseBasicParsing).Content | Invoke-Expression
   Add-Path %APPDATA%\Python\Scripts
-  
+  poetry --version
 
 }
 function Uninstall-Poetry {
