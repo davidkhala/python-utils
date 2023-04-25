@@ -12,4 +12,9 @@ install() {
     poetry install --no-root
 
 }
+login(){
+    local username=$1
+    local password=$2
+    poetry config http-basic.pypi $username $password
+}
 $@
