@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "@davidkhala/http-request"
+name = "http-request"
 version = "0.1.0"
 description = ""
 authors = ["David Liu <david-khala@hotmail.com>"]
