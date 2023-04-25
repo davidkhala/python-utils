@@ -20,4 +20,6 @@
 
 
 `poetry publish`
+- [configure credential](https://python-poetry.org/docs/repositories/#configuring-credentials)
+
 
