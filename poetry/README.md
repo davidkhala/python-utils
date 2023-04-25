@@ -10,6 +10,10 @@
 
 `poetry shell` to activate the virtual environment (venv)
 
+## project structure
+- [official: issue closed without resolution](https://github.com/python-poetry/poetry/issues/2252)
+
+
 # publish
 `poetry build`
 - limit: only pure python wheels are supported.
