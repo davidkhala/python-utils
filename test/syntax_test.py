@@ -8,6 +8,10 @@ class ScriptTestCase(unittest.TestCase):
         self.assertEqual(type(123).__name__, 'int')
         self.assertEqual(type(0.7).__name__, 'float')
 
+    def test_string_literal(self):
+        project_id = 'davidkhala'
+        self.assertEqual(f"projects/{project_id}", 'projects/davidkhala')
+
     def test_regex(self):
         self.assertRegex('www', 'www.runoob.com')  # 在起始位置匹配
         self.assertRegex('com', 'www.runoob.com')  # 不在起始位置匹配
