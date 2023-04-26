@@ -2,19 +2,26 @@ import unittest
 import re
 
 
-class MyTestCase(unittest.TestCase):
+class ScriptTestCase(unittest.TestCase):
     def test_type_of(self):
-        print(type('123'))
-        print(type(123))
-        print(type(0.7))
+        self.assertEqual(type('123').__name__, 'str')
+        self.assertEqual(type(123).__name__, 'int')
+        self.assertEqual(type(0.7).__name__, 'float')
 
     def test_regex(self):
-        assert re.match('www', 'www.runoob.com')  # 在起始位置匹配
-        assert not re.match('com', 'www.runoob.com')  # 不在起始位置匹配
+        self.assertRegex('www', 'www.runoob.com')  # 在起始位置匹配
+        self.assertRegex('com', 'www.runoob.com')  # 不在起始位置匹配
 
     def test_package_name(self):
+        self.assertTrue(re.match('^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$', 'setuptools', re.IGNORECASE))
 
-        assert re.match('^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$', 'setuptools', re.IGNORECASE)
+
+class PackageTestCase(unittest.TestCase):
+    def test_name(self):
+        from syntax import Package
+        Package('http_request')
+        Package('http-request')
+        self.assertRaises(AssertionError, Package, '@davidkhala/http')
 
 
 if __name__ == '__main__':
