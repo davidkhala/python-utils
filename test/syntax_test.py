@@ -1,3 +1,6 @@
+from enum import auto
+
+from syntax import Package, NameEnum
 import unittest
 import re
 
@@ -15,14 +18,21 @@ class ScriptTestCase(unittest.TestCase):
     def test_regex(self):
         self.assertRegex('www', 'www.runoob.com')  # 在起始位置匹配
         self.assertRegex('com', 'www.runoob.com')  # 不在起始位置匹配
-
-    def test_package_name(self):
         self.assertTrue(re.match('^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$', 'setuptools', re.IGNORECASE))
+
+    def test_enum(self):
+        class Ordinal(NameEnum):
+            NORTH = auto()
+            SOUTH = auto()
+            EAST = auto()
+            WEST = auto()
+        print(list(Ordinal))
+
 
 
 class PackageTestCase(unittest.TestCase):
     def test_name(self):
-        from syntax import Package
+
         Package('http_request')
         Package('http-request')
         self.assertRaises(AssertionError, Package, '@davidkhala/http')
