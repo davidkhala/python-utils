@@ -7,7 +7,7 @@ uninstall() {
 update() {
     poetry self update
 }
-install() {
+install-package() {
     poetry add $1
     poetry install --no-root
 }
