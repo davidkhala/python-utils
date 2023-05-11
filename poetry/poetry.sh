@@ -10,7 +10,9 @@ update() {
 install() {
     poetry add $1
     poetry install --no-root
-
+}
+clean-venv(){
+    poetry env remove --all
 }
 login(){
     local username=$1
