@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "khala-python-utils"
-version = "0.0.2"
-description = ""
+version = "0.0.3"
+description = "@davidkhala/python-utils"
 authors = ["David Liu <david-khala@hotmail.com>"]
 readme = "README.md"
 packages = [{ include = "http_request" }, { include = "syntax" }]

@@ -1,6 +1,6 @@
 from enum import auto
 
-from syntax import Package, NameEnum
+from syntax import Package, NameEnum, fs
 import unittest
 import re
 
@@ -38,6 +38,18 @@ class ScriptTestCase(unittest.TestCase):
                 exit(1)  # panic
             case _:
                 exit(1)  # panic
+
+
+class FileTestCase(unittest.TestCase):
+    def test_read(self):
+        content = fs.read('.env')
+        self.assertRegex(content, 'DOMAIN=')
+
+    def test_write(self):
+        fs.write('.env', 'DOMAIN=example.org\n')
+
+    def test_append(self):
+        fs.append('.env', 'Org=github\n')
 
 
 class PackageTestCase(unittest.TestCase):
