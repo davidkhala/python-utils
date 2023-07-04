@@ -3,6 +3,7 @@ from enum import auto
 from syntax import Package, NameEnum, fs
 import unittest
 import re
+from pathlib import Path
 
 
 class ScriptTestCase(unittest.TestCase):
@@ -50,6 +51,10 @@ class FileTestCase(unittest.TestCase):
 
     def test_append(self):
         fs.append('.env', 'Org=github\n')
+
+    def test_resolve(self):
+        path = fs.resolve(__file__)
+        self.assertEqual(__file__, path)
 
 
 class PackageTestCase(unittest.TestCase):
