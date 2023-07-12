@@ -40,7 +40,9 @@ class ScriptTestCase(unittest.TestCase):
                 assert False
 
     def test_for_each(self):
-        for_each([1, 3, 3], lambda i, value: print(i, value))
+        def f(i, value):
+            self.assertEqual(value, i + 1)
+        for_each([1, 2, 3], f)
 
 
 class FileTestCase(unittest.TestCase):
