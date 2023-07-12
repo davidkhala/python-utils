@@ -1,4 +1,4 @@
 publish() {
   poetry publish --build
 }
-$@
+"$@"

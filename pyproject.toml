@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "khala-python-utils"
-version = "0.0.4"
+version = "0.0.5"
 description = "@davidkhala/python-utils"
 authors = ["David Liu <david-khala@hotmail.com>"]
 readme = "README.md"

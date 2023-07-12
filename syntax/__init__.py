@@ -1,5 +1,6 @@
 import re
 from enum import Enum
+from typing import Callable
 
 
 class Package:
@@ -10,3 +11,8 @@ class Package:
 class NameEnum(Enum):
     def _generate_next_value_(name, start, count, last_values):
         return name
+
+
+def for_each(content: [], on_each: Callable[[int, str], None]):
+    for idx, x in enumerate(content):
+        on_each(idx, x)

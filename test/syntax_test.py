@@ -1,9 +1,8 @@
 from enum import auto
 
-from syntax import Package, NameEnum, fs
+from syntax import Package, NameEnum, fs, for_each
 import unittest
 import re
-from pathlib import Path
 
 
 class ScriptTestCase(unittest.TestCase):
@@ -36,9 +35,12 @@ class ScriptTestCase(unittest.TestCase):
             case 1:
                 return
             case 2:
-                exit(1)  # panic
+                assert False
             case _:
-                exit(1)  # panic
+                assert False
+
+    def test_for_each(self):
+        for_each([1, 3, 3], lambda i, value: print(i, value))
 
 
 class FileTestCase(unittest.TestCase):

@@ -8,12 +8,12 @@ def read(path: str):
 
 
 def write(path: str, data):
-    with open(path, mode='w') as file:
+    with open(path, mode='w+') as file:
         return file.write(data)
 
 
 def append(path: str, data):
-    with open(path, mode='a') as file:
+    with open(path, mode='a+') as file:
         return file.write(data)
 
 
