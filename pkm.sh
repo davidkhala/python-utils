@@ -1,4 +1,0 @@
-publish() {
-  poetry publish --build
-}
-"$@"
