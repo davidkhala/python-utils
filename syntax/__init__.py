@@ -14,5 +14,5 @@ class NameEnum(Enum):
 
 
 def for_each(content: [], on_each: Callable[[int, str], None]):
-    for idx, x in enumerate(content):
-        on_each(idx, x)
+    for index, value in enumerate(content):
+        on_each(index, value)
