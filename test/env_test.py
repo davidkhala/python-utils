@@ -17,6 +17,10 @@ class EnvTestCase(unittest.TestCase):
 
         self.assertEqual(domain, 'example.org')
 
+    def test_env_list_all(self):
+        for name, value in os.environ.items():
+            print("{0}: {1}".format(name, value))
+
 
 if __name__ == '__main__':
     unittest.main()
