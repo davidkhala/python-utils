@@ -42,7 +42,18 @@ class ScriptTestCase(unittest.TestCase):
     def test_for_each(self):
         def f(i, value):
             self.assertEqual(value, i + 1)
+
         for_each([1, 2, 3], f)
+
+    def test_dict(self):
+
+        key = "a"
+        value = "b"
+        _dict = {
+            key: value
+        }
+        self.assertEqual(_dict[key], "b")
+        self.assertEqual(_dict[("%s" % key)], "b")
 
 
 class FileTestCase(unittest.TestCase):
