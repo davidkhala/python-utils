@@ -2,7 +2,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 
-def default_on_response(response: requests.Response) -> requests.Response:
+def default_on_response(response: requests.Response) -> dict:
     """
     :param response:
     :return: the input response
@@ -11,7 +11,7 @@ def default_on_response(response: requests.Response) -> requests.Response:
     if response.status_code != 200:
         response.raise_for_status()
     else:
-        return response
+        return response.json()
 
 
 class Request:
@@ -21,12 +21,12 @@ class Request:
             self.auth = HTTPBasicAuth(auth['username'], auth['password'])
         self.on_response = on_response
 
-    def get(self, params=None, **kwargs) -> requests.Response:
+    def get(self, params=None, **kwargs) -> dict:
         kwargs.setdefault('auth', getattr(self, 'auth', None))
-        response = requests.get(self.url, params, **kwargs).json()
+        response = requests.get(self.url, params, **kwargs)
         return self.on_response(response)
 
-    def post(self, json=None, data=None, **kwargs) -> requests.Response:
+    def post(self, json=None, data=None, **kwargs) -> dict:
         kwargs.setdefault('auth', getattr(self, 'auth', None))
-        response = requests.post(self.url, data, json, **kwargs).json()
+        response = requests.post(self.url, data, json, **kwargs)
         return self.on_response(response)
