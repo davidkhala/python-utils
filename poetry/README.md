@@ -14,9 +14,9 @@
 
 
 ## publish
-`./poetry.sh publish`
+`poetry publish --build`
 - [configure credential](https://python-poetry.org/docs/repositories/#configuring-credentials)
-
+  - for pypi: `poetry config http-basic.pypi <username> <password>`
 
 ## clean up
 1. find your environment by `poetry env list`

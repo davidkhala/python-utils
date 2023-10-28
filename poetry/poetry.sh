@@ -18,11 +18,15 @@ clean-venv() {
   poetry env remove --all
 }
 login() {
-  local username=$1
-  local password=$2
+  local username=${2:-davidkhala}
+  local password=$1
   poetry config http-basic.pypi $username $password
+}
+login-token(){
+  local token=$1
+  poetry config pypi-token.pypi $token
 }
 publish() {
   poetry publish --build
 }
-$@
+"$@"
