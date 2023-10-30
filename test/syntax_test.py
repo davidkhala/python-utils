@@ -16,8 +16,8 @@ class ScriptTestCase(unittest.TestCase):
         self.assertEqual(f"projects/{project_id}", 'projects/davidkhala')
 
     def test_regex(self):
-        self.assertRegex('www', 'www.runoob.com')  # 在起始位置匹配
-        self.assertRegex('com', 'www.runoob.com')  # 不在起始位置匹配
+        self.assertRegex('www.runoob.com', 'www')  # 在起始位置匹配
+        self.assertRegex('www.runoob.com', 'com')  # 不在起始位置匹配
         self.assertTrue(re.match('^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$', 'setuptools', re.IGNORECASE))
 
     def test_enum(self):
