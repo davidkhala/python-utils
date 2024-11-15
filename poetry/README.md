@@ -21,9 +21,10 @@
 
 
 ## publish
-`poetry publish --build`
+- `poetry publish --build` will prompt for confirm
+  - For no-interaction publish. You need `poetry build` in advanced 
 - [configure credential](https://python-poetry.org/docs/repositories/#configuring-credentials)
-  - for pypi: `poetry config http-basic.pypi <username> <password>`
+  - for pypi: `poetry config http-basic.pypi __token__ <PYPI_TOKEN>`
 
 ## clean up
 1. find your environment by `poetry env list`
