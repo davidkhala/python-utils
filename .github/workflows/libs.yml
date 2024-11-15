@@ -24,6 +24,7 @@ jobs:
       uses: snok/install-poetry@main
     - name: Install dependencies
       run: poetry install
+    - run: pipx install pytest
     - name: Test with pytest
       run: pytest
       working-directory: test

@@ -7,13 +7,12 @@ readme = "README.md"
 packages = [{ include = "http_request" }, { include = "syntax" }]
 
 [tool.poetry.dependencies]
-python = "^3.11"
-requests = ">=2"
-python-dotenv = "^1.0.0"
+python = "^3.13"
+requests = "*"
+python-dotenv = "*"
 
 [tool.poetry.group.dev.dependencies]
-flake8=">=6"
-pytest=">=7"
+pytest="*"
 
 
 [build-system]
