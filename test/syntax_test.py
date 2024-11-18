@@ -59,10 +59,10 @@ class ScriptTestCase(unittest.TestCase):
 class FileTestCase(unittest.TestCase):
     def test_read(self):
         content = fs.read('.env')
-        self.assertRegex(content, 'DOMAIN=')
+        self.assertRegex(content, 'domain=')
 
     def test_write(self):
-        fs.write('.env', 'DOMAIN=example.org\n')
+        fs.write('.env', 'domain=example.org\n')
 
     def test_append(self):
         fs.append('.env', 'Org=github\n')
