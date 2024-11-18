@@ -8,6 +8,12 @@
 
 > In addition, the isolated virtual environment in which poetry is installed should not be activated for running poetry commands.
 
+- Generic linux install `curl https://raw.githubusercontent.com/davidkhala/python-utils/refs/heads/main/poetry/poetry.sh | bash -s install`
+  - It does not include path import natively. You need to handle it yourself.
+- On Ubuntu: `curl https://raw.githubusercontent.com/davidkhala/ubuntu-utils/refs/heads/master/language/python.sh | bash -s poetry`
+
+
+
 
 ## setup
 `poetry init` to initialise a pre-existing project
