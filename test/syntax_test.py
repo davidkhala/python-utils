@@ -4,6 +4,8 @@ from syntax import Package, NameEnum, fs, for_each
 import unittest
 import re
 
+from syntax.format import JSONReadable
+
 
 class ScriptTestCase(unittest.TestCase):
     def test_type_of(self):
@@ -63,6 +65,7 @@ class FileTestCase(unittest.TestCase):
 
     def test_write(self):
         fs.write('.env', 'domain=example.org\n')
+        fs.write('.noexist', '')
 
     def test_append(self):
         fs.append('.env', 'Org=github\n')
@@ -70,6 +73,12 @@ class FileTestCase(unittest.TestCase):
     def test_resolve(self):
         path = fs.resolve(__file__)
         self.assertEqual(__file__, path)
+
+
+class JSONTest(unittest.TestCase):
+    def test_json(self):
+        r = JSONReadable({'4': 5, '6': 7})
+        fs.write('artifacts/test.json', r)
 
 
 class PackageTestCase(unittest.TestCase):

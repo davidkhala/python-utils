@@ -21,7 +21,7 @@
 `poetry update --sync` to install/update dependencies
 - If not found, this command will create another venv
 
-`poetry install` compared to `poetry update` 
+`poetry install --no-root` compared to `poetry update` 
 - Beyond dependencies, it can install current python module into context for reuse (e.g. use in tests)
 - It will respect lock file
 
