@@ -18,7 +18,7 @@
 ## setup
 `poetry init` to initialise a pre-existing project
 
-`poetry update` to install/update dependencies
+`poetry update --sync` to install/update dependencies
 - `poetry add <packagename>[ <other-packagename> ...]` adds required packages to your pyproject.toml and installs them.
 - If not found, this command will create another venv
 
