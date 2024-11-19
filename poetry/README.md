@@ -27,10 +27,6 @@
 
 `poetry add <packagename>` adds required packages to your pyproject.toml and installs them.
 
-## project structure
-- [official: issue closed without resolution](https://github.com/python-poetry/poetry/issues/2252)
-
-
 ## publish
 - `poetry publish --build` will prompt for confirm
   - For no-interaction publish. You need `poetry build` in advanced 
@@ -38,6 +34,6 @@
   - for pypi: `poetry config http-basic.pypi __token__ <PYPI_TOKEN>`
 
 ## clean up
-1. find your environment by `poetry env list`
-2. remove the environment by `poetry env remove <env-name>`
+- clean up venv: `poetry env remove python` 
+  - It will not cleanup cache/dependencies in interpreter 
 
