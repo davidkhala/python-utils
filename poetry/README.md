@@ -19,8 +19,13 @@
 `poetry init` to initialise a pre-existing project
 
 `poetry update --sync` to install/update dependencies
-- `poetry add <packagename>[ <other-packagename> ...]` adds required packages to your pyproject.toml and installs them.
 - If not found, this command will create another venv
+
+`poetry install` compared to `poetry update` 
+- Beyond dependencies, it can install current python module into context for reuse (e.g. use in tests)
+- It will respect lock file
+
+`poetry add <packagename>` adds required packages to your pyproject.toml and installs them.
 
 ## project structure
 - [official: issue closed without resolution](https://github.com/python-poetry/poetry/issues/2252)
