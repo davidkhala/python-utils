@@ -1,32 +1,26 @@
-install() {
-  curl -sSL https://install.python-poetry.org | python3 -
-}
-uninstall() {
-  curl -sSL https://install.python-poetry.org | python3 - --uninstall
-}
+set -e
 update() {
-  poetry self update
+  poetry update --sync
 }
-update-lock() {
-  poetry update
-}
-install-package() {
-  poetry add $1
+install(){
   poetry install --no-root
+}
+add() {
+  #  adds required packages to your pyproject.toml and installs them.
+  poetry add "$@"
+}
+add-dev(){
+  poetry add -G dev "$@"
 }
 clean-venv() {
   poetry env remove --all
 }
 login() {
-  local username=${2:-davidkhala}
-  local password=$1
-  poetry config http-basic.pypi $username $password
-}
-login-token(){
-  local token=$1
-  poetry config pypi-token.pypi $token
+  local PYPI_TOKEN=$1
+  poetry config http-basic.pypi __token__ "$PYPI_TOKEN"
 }
 publish() {
-  poetry publish --build
+  poetry build
+  poetry publish
 }
 "$@"

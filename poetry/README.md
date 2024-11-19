@@ -8,11 +8,17 @@
 
 > In addition, the isolated virtual environment in which poetry is installed should not be activated for running poetry commands.
 
-- Generic linux install `curl https://raw.githubusercontent.com/davidkhala/python-utils/refs/heads/main/poetry/poetry.sh | bash -s install`
-  - It does not include path import natively. You need to handle it yourself.
-- On Ubuntu: `curl https://raw.githubusercontent.com/davidkhala/ubuntu-utils/refs/heads/master/language/python.sh | bash -s poetry`
 
-
+Linux in general: 
+- It does not include path import natively. You need to handle it yourself.
+```bash
+curl https://raw.githubusercontent.com/davidkhala/python-utils/refs/heads/main/poetry/admin.sh | bash -s install
+```
+ 
+Ubuntu
+```bash
+curl https://raw.githubusercontent.com/davidkhala/ubuntu-utils/refs/heads/master/language/python.sh | bash -s poetry
+```
 
 
 ## setup
@@ -20,12 +26,13 @@
 
 `poetry update --sync` to install/update dependencies
 - If not found, this command will create another venv
+```bash
+curl https://raw.githubusercontent.com/davidkhala/python-utils/refs/heads/main/poetry/poetry.sh | bash -s update
+```
 
 `poetry install --no-root` compared to `poetry update` 
 - Beyond dependencies, it can install current python module into context for reuse (e.g. use in tests)
 - It will respect lock file
-
-`poetry add <packagename>` adds required packages to your pyproject.toml and installs them.
 
 ## publish
 - `poetry publish --build` will prompt for confirm
@@ -34,6 +41,6 @@
   - for pypi: `poetry config http-basic.pypi __token__ <PYPI_TOKEN>`
 
 ## clean up
-- clean up venv: `poetry env remove python` 
-  - It will not cleanup cache/dependencies in interpreter 
+clean up venv: `poetry env remove --all`
+- It will not clean up cache/dependencies in interpreter
 
