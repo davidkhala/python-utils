@@ -78,6 +78,8 @@ class FileTestCase(unittest.TestCase):
 class JSONTest(unittest.TestCase):
     def test_json(self):
         r = JSONReadable({'4': 5, '6': 7})
+        JSONReadable(['b','c'])
+        JSONReadable("[]")
         fs.write('artifacts/test.json', r)
 
 
