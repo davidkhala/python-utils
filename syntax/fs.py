@@ -1,8 +1,7 @@
-import json
 import os
 from pathlib import Path
 
-from syntax.format import Serializable
+from syntax.format import Serializable, JSONReadable
 
 
 def read(path: str):
@@ -20,7 +19,7 @@ def write_json(data, name=None):
         name = data.__str__()
     if isinstance(data, Serializable):
         data = data.as_dict()
-    write(f"{name}.json", json.dumps(data))
+    write(f"{name}.json", JSONReadable(data))
 
 
 def append(path: str, data):
