@@ -4,7 +4,7 @@ from pathlib import Path
 from syntax.format import Serializable, JSONReadable
 
 
-def read(path: str):
+def read(path: str) -> str:
     with open(path, encoding="utf-8") as file:
         return file.read()
 

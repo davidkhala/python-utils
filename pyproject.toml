@@ -7,11 +7,11 @@ readme = "README.md"
 packages = [{ include = "http_request" }, { include = "syntax" }]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.13"
 requests = "*"
 
 [tool.poetry.group.dev.dependencies]
-pytest="*"
+pytest = "*"
 python-dotenv = "*"
 
 
