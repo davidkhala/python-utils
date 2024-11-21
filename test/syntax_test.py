@@ -4,7 +4,7 @@ from syntax import Package, NameEnum, fs, for_each
 import unittest
 import re
 
-from syntax.format import JSONReadable
+from syntax.format import JSONReadable, Serializable
 
 
 class ScriptTestCase(unittest.TestCase):
@@ -73,7 +73,15 @@ class FileTestCase(unittest.TestCase):
     def test_resolve(self):
         path = fs.resolve(__file__)
         self.assertEqual(__file__, path)
-
+    def test_write_json(self):
+        data = '.afda'
+        fs.write_json(data)
+        class S(Serializable):
+            def __str__(self):
+                return 's'
+            def as_dict(self) -> dict:
+                return {"name":"G"}
+        fs.write_json(S())
 
 class JSONTest(unittest.TestCase):
     def test_json(self):
