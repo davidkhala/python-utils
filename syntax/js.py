@@ -1,5 +1,5 @@
 from functools import reduce
-from typing import Callable, Optional
+from typing import Callable
 
 
 class Array(list):
