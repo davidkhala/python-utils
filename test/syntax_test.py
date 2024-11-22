@@ -5,9 +5,26 @@ import unittest
 import re
 
 from syntax.format import JSONReadable, Serializable
+from syntax.js import Array
 
 
-class ScriptTestCase(unittest.TestCase):
+class LanguageTestCase(unittest.TestCase):
+    def test_map(self):
+        def square(x):
+            return x ** 2
+        def sum(x,y):
+            return x + y
+        # List of numbers
+        numbers = Array([1, 2, 3, 4, 5])
+
+        # Use map to apply the function
+        squared_numbers = numbers.map(square)
+
+        # Use reduce to sum the squared numbers
+        total_sum = squared_numbers.reduce(sum)
+
+        # Print the result
+        self.assertEqual(total_sum, 55)
     def test_type_of(self):
         self.assertEqual(type('123').__name__, 'str')
         self.assertEqual(type(123).__name__, 'int')
