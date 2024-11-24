@@ -38,7 +38,7 @@ class TestHttpBin(unittest.TestCase):
     def test_upload(self):
         url = 'https://httpbin.org/post'
 
-        with open('dummy.txt') as f:
+        with open('data/dummy.txt') as f:
             files = {'file': f.read()}
         request = Request(url)
         r = request.post(None, files)

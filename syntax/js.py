@@ -10,3 +10,5 @@ class Array(list):
         if initial is None:
             return reduce(func, self)
         return reduce(func, self, initial)
+    def filter(self, func: Callable):
+        return Array(filter(func, self))

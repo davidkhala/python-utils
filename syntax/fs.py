@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 
 from syntax.format import Serializable, JSONReadable
 
@@ -25,6 +24,9 @@ def write_json(data, name=None):
 def append(path: str, data):
     with open(path, mode='a') as file:
         return file.write(data)
+
+
+from pathlib import Path
 
 
 def resolve(*path_tokens):
