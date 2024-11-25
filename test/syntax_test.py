@@ -28,6 +28,15 @@ class LanguageTestCase(unittest.TestCase):
         # Print the result
         self.assertEqual(total_sum, 55)
 
+    def test_class(self):
+        class A:
+            const = "value"
+
+        a = A()
+        a.const = ""
+        self.assertEqual(a.const, "")
+        self.assertNotEqual(a.const, A.const)
+
     def test_type_of(self):
         self.assertEqual(type('123').__name__, 'str')
         self.assertEqual(type(123).__name__, 'int')
