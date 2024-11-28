@@ -9,5 +9,6 @@ def resolve(*path_tokens):
 def homedir():
     return os.path.expanduser('~')
 
-def home_resolve():
-    return resolve(homedir())
+
+def home_resolve(*path_tokens):
+    return resolve(homedir(), *path_tokens)

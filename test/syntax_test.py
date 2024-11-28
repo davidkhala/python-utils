@@ -90,6 +90,7 @@ class PathTestCase(unittest.TestCase):
     def test_resolve(self):
         self.assertEqual(__file__, path.resolve(__file__))
         self.assertEqual(str(Path.home()), path.homedir())
+        print(path.home_resolve('.databrickscfg'))
 
 class FileTestCase(unittest.TestCase):
     def test_read(self):
