@@ -1,9 +1,9 @@
-from enum import auto
-
-from syntax import Package, NameEnum, fs, for_each
-import unittest
 import re
+import unittest
+from enum import auto
+from pathlib import Path
 
+from syntax import Package, NameEnum, fs, for_each, path
 from syntax.format import JSONReadable, Serializable, SQL
 from syntax.js import Array
 
@@ -86,6 +86,10 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(_dict[key], "b")
         self.assertEqual(_dict[("%s" % key)], "b")
 
+class PathTestCase(unittest.TestCase):
+    def test_resolve(self):
+        self.assertEqual(__file__, path.resolve(__file__))
+        self.assertEqual(str(Path.home()), path.homedir())
 
 class FileTestCase(unittest.TestCase):
     def test_read(self):
@@ -99,9 +103,6 @@ class FileTestCase(unittest.TestCase):
     def test_append(self):
         fs.append('.env', 'Org=github\n')
 
-    def test_resolve(self):
-        path = fs.resolve(__file__)
-        self.assertEqual(__file__, path)
 
     def test_write_json(self):
         data = '.afda'

@@ -1,5 +1,3 @@
-import os
-
 from syntax.format import Serializable, JSONReadable
 
 
@@ -26,8 +24,3 @@ def append(path: str, data):
         return file.write(data)
 
 
-from pathlib import Path
-
-
-def resolve(*path_tokens):
-    return Path(os.path.join(*path_tokens)).__str__()
