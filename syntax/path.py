@@ -12,3 +12,7 @@ def homedir():
 
 def home_resolve(*path_tokens):
     return resolve(homedir(), *path_tokens)
+
+
+def delete(_path):
+    Path(_path).unlink(True)
