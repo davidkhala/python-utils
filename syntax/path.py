@@ -10,8 +10,15 @@ def homedir():
     return os.path.expanduser('~')
 
 
+HOME = homedir()
+
+
+def dirname(file):
+    return os.path.dirname(file)
+
+
 def home_resolve(*path_tokens):
-    return resolve(homedir(), *path_tokens)
+    return resolve(HOME, *path_tokens)
 
 
 def delete(_path):
