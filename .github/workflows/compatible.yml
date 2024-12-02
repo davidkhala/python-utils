@@ -11,3 +11,10 @@ jobs:
           python-version: "3.13"
       - run: pip install numpy==1.26.4
       - run: python -m numpy --verbose
+  latest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@main
+        with:
+          check-latest: true
+      - run: python --version
