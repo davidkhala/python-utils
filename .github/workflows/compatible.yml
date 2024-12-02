@@ -1,0 +1,13 @@
+name: compatible tests
+on:
+  workflow_dispatch:
+
+jobs:
+  numpy-win64:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/setup-python@main
+        with:
+          python-version: "3.13"
+      - run: pip install numpy==1.26.4
+      - run: python -m numpy --verbose
