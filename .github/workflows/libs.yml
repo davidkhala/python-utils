@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - name: check Python
-        run: python --version
       - name: Install Poetry
         uses: snok/install-poetry@main
       - name: Install dependencies

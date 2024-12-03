@@ -5,12 +5,15 @@ on:
 jobs:
   numpy-win64:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ 3.13, 3.12 ]
     steps:
       - uses: actions/setup-python@main
         with:
-          python-version: "3.13"
+          python-version: ${{matrix.python-version}}
       - run: pip install numpy==1.26.4
-      - run: python -m numpy --verbose
+      - run: python -c "import numpy"
   latest:
     runs-on: ubuntu-latest
     steps:

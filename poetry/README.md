@@ -1,7 +1,7 @@
 # poetry
 
 [wiki](https://github.com/davidkhala/python-utils/wiki/Package-Management-Tools#poetry)
-## Install
+## [Install](https://python-poetry.org/docs/master/#installing-with-the-official-installer)
 > Poetry should always be installed in a dedicated virtual environment to isolate it from the rest of your system.
 > It should in no case be installed in the environment of the project that is to be managed by Poetry. 
 > This ensures that Poetry’s own dependencies will not be accidentally upgraded or uninstalled. 
