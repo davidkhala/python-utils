@@ -2,14 +2,14 @@ set -e
 update() {
   poetry update --sync
 }
-install(){
+install() {
   poetry install --no-root
 }
 add() {
   #  adds required packages to your pyproject.toml and installs them.
   poetry add "$@"
 }
-add-dev(){
+add-dev() {
   poetry add -G dev "$@"
 }
 clean-venv() {
