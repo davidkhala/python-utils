@@ -1,4 +1,4 @@
-from syntax.format import Serializable, JSONReadable
+from davidkhala.syntax.format import Serializable, JSONReadable
 
 
 def read(path: str) -> str:

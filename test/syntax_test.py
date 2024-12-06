@@ -3,9 +3,9 @@ import unittest
 from enum import auto
 from pathlib import Path
 
-from syntax import Package, NameEnum, fs, for_each, path
-from syntax.format import JSONReadable, Serializable, SQL
-from syntax.js import Array
+from davidkhala.syntax import Package, NameEnum, fs, for_each, path
+from davidkhala.syntax.format import JSONReadable, Serializable, SQL
+from davidkhala.syntax.js import Array
 
 
 class LanguageTestCase(unittest.TestCase):

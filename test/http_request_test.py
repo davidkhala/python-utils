@@ -1,6 +1,6 @@
 import unittest
 
-from http_request import Request
+from davidkhala.http_request import Request
 
 
 class TestHttpBin(unittest.TestCase):

@@ -2,8 +2,8 @@ set -e
 update() {
   poetry update --sync
 }
-install() {
-  poetry install --no-root
+install-all() {
+  poetry install --all-extras
 }
 add() {
   #  adds required packages to your pyproject.toml and installs them.
