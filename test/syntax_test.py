@@ -10,9 +10,6 @@ from davidkhala.syntax.js import Array
 
 class LanguageTestCase(unittest.TestCase):
     def test_map(self):
-        def square(x):
-            return x ** 2
-
         def sum(x, y):
             return x + y
 
@@ -20,7 +17,7 @@ class LanguageTestCase(unittest.TestCase):
         numbers = Array([1, 2, 3, 4, 5])
 
         # Use map to apply the function
-        squared_numbers = numbers.map(square)
+        squared_numbers = numbers.map(lambda x: x ** 2)
 
         # Use reduce to sum the squared numbers
         total_sum = squared_numbers.reduce(sum)
@@ -86,11 +83,13 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(_dict[key], "b")
         self.assertEqual(_dict[("%s" % key)], "b")
 
+
 class PathTestCase(unittest.TestCase):
     def test_resolve(self):
         self.assertEqual(__file__, path.resolve(__file__))
         self.assertEqual(str(Path.home()), path.homedir())
         print(path.home_resolve('.databrickscfg'))
+
 
 class FileTestCase(unittest.TestCase):
     def test_read(self):
@@ -103,7 +102,6 @@ class FileTestCase(unittest.TestCase):
 
     def test_append(self):
         fs.append('.env', 'Org=github\n')
-
 
     def test_write_json(self):
         data = '.afda'
