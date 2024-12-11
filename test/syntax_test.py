@@ -83,6 +83,14 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(_dict[key], "b")
         self.assertEqual(_dict[("%s" % key)], "b")
 
+    def test_version(self):
+        from davidkhala.syntax import Version
+        import sys
+        v = Version()
+        self.assertEqual(str(sys.version_info.major), v.major)
+        self.assertEqual(str(sys.version_info.minor), v.minor)
+        self.assertEqual(str(sys.version_info.micro), v.micro)
+
 
 class PathTestCase(unittest.TestCase):
     def test_resolve(self):
