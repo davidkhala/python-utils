@@ -4,7 +4,7 @@ from enum import auto
 from pathlib import Path
 
 from davidkhala.syntax import Package, NameEnum, fs, for_each, path
-from davidkhala.syntax.format import JSONReadable, Serializable, SQL
+from davidkhala.syntax.format import JSONReadable, Serializable
 from davidkhala.syntax.js import Array
 
 
@@ -130,14 +130,6 @@ class PackageTestCase(unittest.TestCase):
         Package('http_request')
         Package('http-request')
         self.assertRaises(AssertionError, Package, '@davidkhala/http')
-
-
-class SQLParseTestCase(unittest.TestCase):
-    def test_split(self):
-        sql_content = fs.read('data/test.sql')
-        s = SQL(sql_content)
-        for statement in s.split():
-            print(statement)
 
 
 if __name__ == '__main__':

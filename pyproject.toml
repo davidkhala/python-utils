@@ -8,12 +8,16 @@ packages = [{ include = "davidkhala" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-requests = "*"
-sqlparse = "*"
+# for extras
+requests = { version = "*", optional = true }
+sqlparse = { version = "*", optional = true }
 [tool.poetry.group.dev.dependencies]
 pytest = "*"
 python-dotenv = "*"
 
+[tool.poetry.extras]
+sql = ["sqlparse"]
+http_request = ["requests"]
 
 [build-system]
 requires = ["poetry-core"]
