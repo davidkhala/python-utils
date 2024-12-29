@@ -2,7 +2,7 @@ set -e
 update() {
   poetry update --sync
 }
-install-all() {
+install() {
   poetry install --all-extras
 }
 add() {
@@ -14,6 +14,9 @@ add-dev() {
 }
 clean-venv() {
   poetry env remove --all
+}
+current-venv(){
+   poetry env info --path
 }
 login() {
   local PYPI_TOKEN=$1
