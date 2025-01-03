@@ -33,6 +33,16 @@ curl https://raw.githubusercontent.com/davidkhala/python-utils/refs/heads/main/p
 `poetry install --no-root` compared to `poetry update` 
 - Beyond dependencies, it can install current python module into context for reuse (e.g. use in tests)
 - It will respect lock file
+### non package mode
+by specify `package-mode = false` under section `[tool.poetry]`
+
+You can
+- skip requirements to specify mandatory `name`, `version`, `description` or `authors` value in section
+
+While you cannot
+- define scripts in the [tool.poetry.scripts] section
+- reference and import you local python module
+
 
 ## publish
 - `poetry publish --build` will prompt for confirm
