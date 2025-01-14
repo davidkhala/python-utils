@@ -1,6 +1,6 @@
 from enum import Enum
-from typing import Callable
-
+from typing import Callable, Iterable
+import platform
 
 class Package:
     def __init__(self, name: str):
@@ -13,12 +13,11 @@ class NameEnum(Enum):
         return name
 
 
-def for_each(content: list, on_each: Callable[[int, str], None]):
+def for_each(content: Iterable, on_each: Callable[[int, str], None]):
     for index, value in enumerate(content):
         on_each(index, value)
 
 
-import platform
 
 
 class Version:

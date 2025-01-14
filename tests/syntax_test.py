@@ -138,7 +138,11 @@ class PackageTestCase(unittest.TestCase):
         Package('http_request')
         Package('http-request')
         self.assertRaises(AssertionError, Package, '@davidkhala/http')
-
+    def test_import(self):
+        import importlib
+        from davidkhala.syntax import Package
+        _ = importlib.import_module('davidkhala.syntax')
+        self.assertEqual(_.Package, Package )
 
 if __name__ == '__main__':
     unittest.main()
