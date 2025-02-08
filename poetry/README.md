@@ -2,24 +2,29 @@
 
 [wiki](https://github.com/davidkhala/python-utils/wiki/Package-Management-Tools#poetry)
 ## [Install](https://python-poetry.org/docs/master/#installing-with-the-official-installer)
-> Poetry should always be installed in a dedicated virtual environment to isolate it from the rest of your system.
 > It should in no case be installed in the environment of the project that is to be managed by Poetry. 
 > This ensures that Poetry’s own dependencies will not be accidentally upgraded or uninstalled. 
+> The isolated virtual environment in which poetry is installed should not be activated for running poetry commands.
 
-> In addition, the isolated virtual environment in which poetry is installed should not be activated for running poetry commands.
 
-
-Linux in general: 
+Linux: 
 - It does not include path import natively. You need to handle it yourself.
 ```bash
 curl https://raw.githubusercontent.com/davidkhala/python-utils/refs/heads/main/poetry/admin.sh | bash -s install
 ```
- 
-Ubuntu
-```bash
-curl https://raw.githubusercontent.com/davidkhala/ubuntu-utils/refs/heads/master/language/python.sh | bash -s poetry
-```
+- Ubuntu
+  ```bash
+  curl https://raw.githubusercontent.com/davidkhala/ubuntu-utils/refs/heads/master/language/python.sh | bash -s poetry
+  ```
 
+## Rebase
+To change a python version
+[TODO] validate
+1. `poetry self update`
+2. davidkhala.syntax.poetry.py#reconfigure_python
+3. Clear-venv
+
+# Usage
 
 ## setup
 `poetry init` to initialise a pre-existing project

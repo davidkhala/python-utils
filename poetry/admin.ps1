@@ -15,8 +15,7 @@ function Clear-venv{
 }
 function Uninstall-Poetry
 {
-    Clear-venv
-
+    Remove-Item $env:LOCALAPPDATA\pypoetry -Recurse -Force
     (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py - --uninstall
 }
 function Find-Poetry
