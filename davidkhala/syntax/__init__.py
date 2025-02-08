@@ -1,6 +1,8 @@
+import os
 from enum import Enum
 from typing import Callable, Iterable
 import platform
+
 
 class Package:
     def __init__(self, name: str):
@@ -9,7 +11,8 @@ class Package:
 
 
 class NameEnum(Enum):
-    def _generate_next_value_(name, start, count, last_values):
+    @staticmethod
+    def _generate_next_value_(name, *args):
         return name
 
 
@@ -18,11 +21,9 @@ def for_each(content: Iterable, on_each: Callable[[int, str], None]):
         on_each(index, value)
 
 
-
-
 class Version:
     def __init__(self):
-        self.major, self.minor, self.patchlevel = platform.python_version_tuple()
+        self.major, self.minor, self.patch = platform.python_version_tuple()
 
     @staticmethod
     def sem_ver() -> str:
@@ -30,4 +31,16 @@ class Version:
 
     @property
     def micro(self) -> str:
-        return self.patchlevel
+        return self.patch
+
+
+def is_windows() -> bool:
+    return os.name == 'nt' or platform.system() == 'Windows'
+
+
+def is_linux() -> bool:
+    return platform.system() == 'Linux'
+
+
+def is_mac() -> bool:
+    return platform.system() == 'Darwin'

@@ -1,11 +1,13 @@
+import os
 import re
 import unittest
 from enum import auto
 from pathlib import Path
 
-from davidkhala.syntax import Package, NameEnum, fs, for_each, path
+from davidkhala.syntax import Package, NameEnum, fs, for_each, path, is_windows
 from davidkhala.syntax.format import JSONReadable, Serializable
 from davidkhala.syntax.js import Array
+from davidkhala.syntax.poetry import reconfigure_python
 
 
 class LanguageTestCase(unittest.TestCase):
@@ -96,7 +98,14 @@ class PathTestCase(unittest.TestCase):
     def test_resolve(self):
         self.assertEqual(__file__, path.resolve(__file__))
         self.assertEqual(str(Path.home()), path.homedir())
-        print(path.home_resolve('.databrickscfg'))
+
+        print("\n", path.home_resolve('.databrickscfg'))
+        if is_windows():
+            print('APPDATA=', os.environ.get('APPDATA'))
+            print('LocalAppData=', os.environ.get('LOCALAPPDATA'))
+
+    def test_poetry(self):
+        reconfigure_python('3.12.9')
 
 
 class FileTestCase(unittest.TestCase):
@@ -138,11 +147,13 @@ class PackageTestCase(unittest.TestCase):
         Package('http_request')
         Package('http-request')
         self.assertRaises(AssertionError, Package, '@davidkhala/http')
+
     def test_import(self):
         import importlib
         from davidkhala.syntax import Package
         _ = importlib.import_module('davidkhala.syntax')
-        self.assertEqual(_.Package, Package )
+        self.assertEqual(_.Package, Package)
+
 
 if __name__ == '__main__':
     unittest.main()

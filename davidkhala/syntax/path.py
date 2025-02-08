@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def resolve(*path_tokens):
-    return str(Path(os.path.join(*path_tokens)))
+    return os.path.join(path_tokens[0], *path_tokens[1:])
 
 
 def homedir():

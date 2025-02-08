@@ -10,4 +10,8 @@ uninstall() {
 upgrade() {
   poetry self update
 }
+configure(){
+  vi ~/.config/pypoetry/venv/pyvenv.cfg
+}
+
 "$@"
