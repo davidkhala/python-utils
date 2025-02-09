@@ -1,8 +1,10 @@
+from typing import Optional
+
 import requests
 from requests.auth import HTTPBasicAuth
 
 
-def default_on_response(response: requests.Response) -> dict:
+def default_on_response(response: requests.Response) -> Optional[dict]:
     """
     :param response:
     :return: the input response

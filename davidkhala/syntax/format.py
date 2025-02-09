@@ -12,5 +12,5 @@ class Serializable(ABC):
 
     @abstractmethod
     def as_dict(self) -> dict:
-        pass
+        ...
 

@@ -1,5 +1,7 @@
 import os
 import platform
+from typing import Optional
+
 from packaging import version
 from davidkhala.syntax import is_windows, is_linux, is_mac
 from davidkhala.syntax.path import resolve
@@ -10,20 +12,23 @@ APPDATA = {
 }
 
 
-def python_paths(major: int | str, minor: int | str) -> dict | None:
-    _ = f"Python{major}{minor}"
-
+def python_paths(major: str, minor: str) -> Optional[dict]:
     if is_windows():
-        home = resolve(APPDATA['Local'], 'Programs', 'Python', _)
+        home = resolve(APPDATA['Local'], 'Programs', 'Python', f"Python{major}{minor}")
 
         return {
             'home': home,
             'executable': resolve(home, 'python.exe'),
         }
     elif is_linux():
-        pass
+        home = '/usr/bin'
+        return {
+            'home': home,
+            'executable': resolve(home, f"python{major}.{minor}"),
+        }
     elif is_mac():
-        pass
+        # TODO
+        ...
 
 
 class Version:

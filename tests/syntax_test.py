@@ -4,7 +4,7 @@ import unittest
 from enum import auto
 from pathlib import Path
 
-from davidkhala.syntax import Package, NameEnum, fs, for_each, path, is_windows
+from davidkhala.syntax import Package, NameEnum, fs, for_each, path, is_windows, is_linux
 from davidkhala.syntax.format import JSONReadable, Serializable
 from davidkhala.syntax.js import Array
 from davidkhala.syntax.poetry import reconfigure_python
@@ -61,6 +61,8 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(Ordinal.NORTH.value, 'NORTH')
 
     def test_switch(self):
+        """
+        Added in python 3.10
         match 1:
             case 1:
                 return
@@ -68,6 +70,8 @@ class LanguageTestCase(unittest.TestCase):
                 assert False
             case _:
                 assert False
+        """
+
 
     def test_for_each(self):
         def f(i, value):
@@ -105,7 +109,8 @@ class PathTestCase(unittest.TestCase):
             print('LocalAppData=', os.environ.get('LOCALAPPDATA'))
 
     def test_poetry(self):
-        reconfigure_python('3.13.2')
+        if is_windows() and not os.environ.get('ci'):
+            reconfigure_python('3.13.2')
 
 
 class FileTestCase(unittest.TestCase):

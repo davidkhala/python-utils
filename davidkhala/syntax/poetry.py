@@ -16,11 +16,10 @@ def pyvenv_cfg_path():
 
 
 def reconfigure_python(sem_ver: str):
-    major, minor, micro = sem_ver.split('.')
     _pyvenv_cfg_path = pyvenv_cfg_path()
     if not os.path.exists(_pyvenv_cfg_path):
         raise FileNotFoundError(f"{_pyvenv_cfg_path} not found")
-
+    major, minor, _ = sem_ver.split('.')
     _paths = python_paths(major, minor)
     _command = f"{_paths['executable']} -m venv --clear --without-scm-ignore-files {resolve(APPDATA['Roaming'], 'pypoetry', 'venv')}"
     target = {
