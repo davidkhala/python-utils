@@ -86,7 +86,7 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(_dict[("%s" % key)], "b")
 
     def test_version(self):
-        from davidkhala.syntax import Version
+        from davidkhala.syntax.env import Version
         import sys
         v = Version()
         self.assertEqual(str(sys.version_info.major), v.major)
@@ -105,7 +105,7 @@ class PathTestCase(unittest.TestCase):
             print('LocalAppData=', os.environ.get('LOCALAPPDATA'))
 
     def test_poetry(self):
-        reconfigure_python('3.12.9')
+        reconfigure_python('3.13.2')
 
 
 class FileTestCase(unittest.TestCase):

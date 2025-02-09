@@ -21,19 +21,6 @@ def for_each(content: Iterable, on_each: Callable[[int, str], None]):
         on_each(index, value)
 
 
-class Version:
-    def __init__(self):
-        self.major, self.minor, self.patch = platform.python_version_tuple()
-
-    @staticmethod
-    def sem_ver() -> str:
-        return platform.python_version()
-
-    @property
-    def micro(self) -> str:
-        return self.patch
-
-
 def is_windows() -> bool:
     return os.name == 'nt' or platform.system() == 'Windows'
 
