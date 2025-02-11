@@ -20,3 +20,10 @@ jobs:
       - run: ./poetry/admin.sh install
       - run: poetry install --extras poetry
       - run: poetry run python tests/poetry/test_.py
+  mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@main
+      - run: curl -sSL https://install.python-poetry.org | python3 -
+      - run: poetry install --extras poetry
+      - run: poetry run python tests/poetry/test_.py
