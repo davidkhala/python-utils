@@ -21,7 +21,11 @@ def reconfigure_python(sem_ver: str):
         raise FileNotFoundError(f"{_pyvenv_cfg_path} not found")
     major, minor, _ = sem_ver.split('.')
     _paths = python_paths(major, minor)
-    _command = f"{_paths['executable']} -m venv --clear --without-scm-ignore-files {resolve(APPDATA['Roaming'], 'pypoetry', 'venv')}"
+    if is_windows():
+        _command = f"{_paths['executable']} -m venv --clear --without-scm-ignore-files {resolve(APPDATA['Roaming'], 'pypoetry', 'venv')}"
+    elif is_mac():
+        _command = f"{_paths['executable']} -m venv --copies --clear --without-scm-ignore-files {home_resolve('Library', 'Application Support', 'pypoetry', 'venv')}"
+
     target = {
         **_paths,
         "version": sem_ver,
