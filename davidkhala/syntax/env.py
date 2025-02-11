@@ -27,8 +27,11 @@ def python_paths(major: str, minor: str) -> Optional[dict]:
             'executable': resolve(home, f"python{major}.{minor}"),
         }
     elif is_mac():
-        # TODO
-        ...
+        home = '/Library/Frameworks/Python.framework/Versions/Current/bin'
+        return {
+            "home": home,
+            "executable": resolve(home, "python"),
+        }
 
 
 class Version:
