@@ -27,10 +27,10 @@ def python_paths(major: str, minor: str) -> Optional[dict]:
             'executable': resolve(home, f"python{major}.{minor}"),
         }
     elif is_mac():
-        home = '/Library/Frameworks/Python.framework/Versions/Current/bin'
+        home = f"/Library/Frameworks/Python.framework/Versions/{major}.{minor}/bin"
         return {
             "home": home,
-            "executable": resolve(home, "python"),
+            "executable": resolve(home, f"python{major}.{minor}"),
         }
 
 
