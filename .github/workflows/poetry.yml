@@ -1,0 +1,22 @@
+on:
+  push:
+
+jobs:
+  win:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@main
+      - run: |
+          . ./poetry/admin.ps1
+          Install-Poetry
+      - run: |
+          & "$env:APPDATA\Python\Scripts\poetry" install --extras poetry
+      - run: |
+          & "$env:APPDATA\Python\Scripts\poetry" run python tests/poetry/test_.py
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - run: ./poetry/admin.sh install
+      - run: poetry install --extras poetry
+      - run: poetry run python tests/poetry/test_.py

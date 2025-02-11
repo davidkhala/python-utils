@@ -1,0 +1,16 @@
+name: compatible tests
+on:
+  workflow_dispatch:
+
+jobs:
+  numpy-win64:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ 3.13, 3.12 ]
+    steps:
+      - uses: actions/setup-python@main
+        with:
+          python-version: ${{matrix.python-version}}
+      - run: pip install numpy==1.26.4
+      - run: python -c "import numpy"

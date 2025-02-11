@@ -1,0 +1,13 @@
+on:
+  workflow_dispatch:
+
+name: publish libraries
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: snok/install-poetry@main
+      - run: poetry build
+      - run: poetry config http-basic.pypi __token__ ${{secrets.PYPI_TOKEN}}
+      - run: poetry publish
