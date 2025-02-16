@@ -1,11 +1,27 @@
 import subprocess
+from subprocess import CompletedProcess
+
+from davidkhala.syntax.fs import rm
 
 
 class Installer:
-    def __init__(self, out_dir, source_py: str):
-        self.options = [
-            '--distpath', out_dir, '--specpath', out_dir,
-            "--onefile", source_py
-        ]
-        self.build = lambda: subprocess.run(["pyinstaller", *self.options])
-        self.clean = lambda: subprocess.run(["pyinstaller", "--clean", *self.options])
+    def __init__(self, default_directory: str, source_py: str):
+        self.dist = default_directory  # directory for executable binary
+        self.spec = default_directory  # directory for *.spec
+        self.work = default_directory  # directory for build/
+        self.file = source_py
+
+    def build(self) -> CompletedProcess:
+        return subprocess.run([
+            "pyinstaller",
+            '--distpath', self.dist,
+            '--specpath', self.spec,
+            "--workpath", self.work,
+            "--onefile", self.file,
+        ])
+
+    def clean(self, force: bool):
+        if self.dist != self.spec or force:
+            rm(self.spec)
+        if self.dist != self.work or force:
+            rm(self.work)

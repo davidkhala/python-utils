@@ -24,3 +24,8 @@ def append(path: str, data):
         return file.write(data)
 
 
+from shutil import rmtree
+
+
+def rm(path):
+    rmtree(path, ignore_errors=True)
