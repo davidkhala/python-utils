@@ -72,7 +72,6 @@ class LanguageTestCase(unittest.TestCase):
                 assert False
         """
 
-
     def test_for_each(self):
         def f(i, value):
             self.assertEqual(value, i + 1)
@@ -80,7 +79,6 @@ class LanguageTestCase(unittest.TestCase):
         for_each([1, 2, 3], f)
 
     def test_dict(self):
-
         key = "a"
         value = "b"
         _dict = {
@@ -104,8 +102,12 @@ class LanguageTestCase(unittest.TestCase):
 
 
 class PathTestCase(unittest.TestCase):
-    def test_resolve(self):
+    def test_current_file(self):
+        self.assertIsInstance(__file__, str)
         self.assertEqual(__file__, path.resolve(__file__))
+
+    def test_resolve(self):
+
         self.assertEqual(str(Path.home()), path.homedir())
 
         print("\n", path.home_resolve('.databrickscfg'))
