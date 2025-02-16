@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "davidkhala.utils"
-version = "0.2.1"
+version = "0.2.3"
 description = "@davidkhala/python-utils"
 authors = ["David Liu <david-khala@hotmail.com>"]
 readme = "README.md"
@@ -12,6 +12,7 @@ python = "^3.9"
 requests = { version = "*", optional = true }
 sqlparse = { version = "*", optional = true }
 python-dotenv = { version = "*", optional = true }
+pyinstaller = { version = "*", optional = true } # python <3.14
 [tool.poetry.group.dev.dependencies]
 pytest = "*"
 python-dotenv = "*"
@@ -20,6 +21,7 @@ python-dotenv = "*"
 sql = ["sqlparse"]
 http_request = ["requests"]
 poetry = ["python-dotenv"]
+build = ["pyinstaller"]
 
 [build-system]
 requires = ["poetry-core"]
