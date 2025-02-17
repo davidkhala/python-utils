@@ -1,11 +1,12 @@
 import subprocess
 from subprocess import CompletedProcess
+from typing import Optional
 
 from davidkhala.syntax.fs import rm
 
 
 class Installer:
-    name: str
+    name: Optional[str] = None
 
     def __init__(self, default_directory: str, source_py: str):
         self.dist = default_directory  # directory for executable binary

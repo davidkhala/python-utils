@@ -4,15 +4,18 @@ on:
 jobs:
   win:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@main
       - run: |
           . ./poetry/admin.ps1
           Install-Poetry
       - run: |
-          & "$env:APPDATA\Python\Scripts\poetry" install --extras poetry
+          poetry install --extras poetry
       - run: |
-          & "$env:APPDATA\Python\Scripts\poetry" run python tests/poetry/test_.py
+          poetry run python tests/poetry/test_.py
   ubuntu:
     runs-on: ubuntu-latest
     steps:

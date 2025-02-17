@@ -10,14 +10,20 @@ jobs:
       - uses: snok/install-poetry@main
       - run: poetry build
       - run: poetry config http-basic.pypi __token__ ${{secrets.PYPI_TOKEN}}
-      - run: poetry publish
+      - run: poetry publish --skip-existing
   poetry-util:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@main
-      - uses: snok/install-poetry@main
+      - uses: davidkhala/poetry-buildpack@main
+        with:
+          working-directory: .
       - run: poetry run build-poetry
       - run: .\tests\poetry\test.ps1
+        shell: pwsh
       - uses: softprops/action-gh-release@master
         with:
           name: poetry-util

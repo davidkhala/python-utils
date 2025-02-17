@@ -19,12 +19,16 @@ curl https://raw.githubusercontent.com/davidkhala/python-utils/refs/heads/main/p
 
 ## Rebase
 To change a python version
-[TODO] validate
 1. `poetry self update`
-2. davidkhala.syntax.poetry.py#reconfigure_python
+2. for non-linux, see in `davidkhala.syntax.poetry.__init__.py#reconfigure_python`
 3. Clear-venv
 
 # Usage
+
+## In GitHub workflow
+- uses: snok/install-poetry@main
+  - In Powershell(`poetry`), bin not in path: `& "$env:APPDATA\Python\Scripts\poetry"`
+  - In shell=`bash`: use poetry  
 
 ## setup
 `poetry init` to initialise a pre-existing project
@@ -51,7 +55,8 @@ While you cannot
 
 ## publish
 - `poetry publish --build` will prompt for confirm
-  - For no-interaction publish. You need `poetry build` in advanced 
+  - For no-interaction publish. You need `poetry build` in advanced
+- `poetry publish --skip-existing` can ignore error on existing version
 - [configure credential](https://python-poetry.org/docs/repositories/#configuring-credentials)
   - for pypi: `poetry config http-basic.pypi __token__ <PYPI_TOKEN>`
 
