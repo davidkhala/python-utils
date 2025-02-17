@@ -1,9 +1,9 @@
 on:
   workflow_dispatch:
 
-name: publish libraries
+name: publish
 jobs:
-  publish:
+  package:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
@@ -11,3 +11,15 @@ jobs:
       - run: poetry build
       - run: poetry config http-basic.pypi __token__ ${{secrets.PYPI_TOKEN}}
       - run: poetry publish
+  poetry-util:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: snok/install-poetry@main
+      - run: poetry run build-poetry
+      - run: .\tests\poetry\test.ps1
+      - uses: softprops/action-gh-release@master
+        with:
+          name: poetry-util
+          files: dist/poetry.exe
+          tag_name: poetry-util
