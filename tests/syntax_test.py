@@ -7,7 +7,7 @@ from pathlib import Path
 from davidkhala.syntax import Package, NameEnum, fs, for_each, path, is_windows, is_linux
 from davidkhala.syntax.format import JSONReadable, Serializable
 from davidkhala.syntax.js import Array
-from davidkhala.syntax.poetry import reconfigure_python
+from davidkhala.poetry import reconfigure_python
 
 
 class LanguageTestCase(unittest.TestCase):

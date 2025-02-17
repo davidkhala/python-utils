@@ -5,11 +5,17 @@ from davidkhala.syntax.fs import rm
 
 
 class Installer:
+    name: str
+
     def __init__(self, default_directory: str, source_py: str):
         self.dist = default_directory  # directory for executable binary
         self.spec = default_directory  # directory for *.spec
         self.work = default_directory  # directory for build/
         self.file = source_py
+
+    @property
+    def name_options(self) -> list:
+        return ["--name", self.name] if self.name else []
 
     def build(self) -> CompletedProcess:
         return subprocess.run([
@@ -17,6 +23,7 @@ class Installer:
             '--distpath', self.dist,
             '--specpath', self.spec,
             "--workpath", self.work,
+            *self.name_options,
             "--onefile", self.file,
         ])
 

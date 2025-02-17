@@ -1,8 +1,8 @@
 import os
 
 from davidkhala.syntax import is_windows, is_linux, is_mac
-from davidkhala.syntax.env import python_paths, APPDATA
-from davidkhala.syntax.path import home_resolve, resolve
+from davidkhala.syntax.env import APPDATA, python_paths
+from davidkhala.syntax.path import resolve, home_resolve
 
 
 def pyvenv_cfg_path():
