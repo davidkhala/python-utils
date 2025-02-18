@@ -25,6 +25,5 @@ function Find-Poetry
 }
 function Configure
 {
-    # TODO issue #7
     Invoke-Item $env:APPDATA/pypoetry/venv/pyvenv.cfg
 }

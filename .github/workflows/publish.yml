@@ -13,17 +13,14 @@ jobs:
       - run: poetry publish --skip-existing
   poetry-util:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: bash
     steps:
       - uses: actions/checkout@main
       - uses: davidkhala/poetry-buildpack@main
         with:
           working-directory: .
       - run: poetry run build-poetry
+        shell: bash
       - run: .\tests\poetry\test.ps1
-        shell: pwsh
       - uses: softprops/action-gh-release@master
         with:
           name: poetry-util
