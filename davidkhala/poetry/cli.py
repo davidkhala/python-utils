@@ -10,9 +10,8 @@ def main():
     reconfigure_parser.add_argument("version", help="Semantic version", default="3.12.7")
     args = parser.parse_args()
 
-    match args.command:
-        case "reconfigure":
-            reconfigure_python(args.version)
+    if args.command == 'reconfigure':
+        reconfigure_python(args.version)
 
 
 if __name__ == "__main__":
