@@ -23,6 +23,5 @@ jobs:
       - run: .\tests\poetry\test.ps1
       - uses: softprops/action-gh-release@master
         with:
-          name: poetry-util
           files: dist/poetry.exe
           tag_name: poetry-util
