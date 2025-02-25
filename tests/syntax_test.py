@@ -4,28 +4,30 @@ import unittest
 from enum import auto
 from pathlib import Path
 
-from davidkhala.syntax import Package, NameEnum, fs, for_each, path, is_windows, is_linux
-from davidkhala.syntax.format import JSONReadable, Serializable
-from davidkhala.syntax.js import Array
 from davidkhala.poetry import reconfigure_python
+from davidkhala.syntax import Package, NameEnum, fs, path, is_windows
+from davidkhala.syntax.format import JSONReadable
+from davidkhala.syntax.interface import Serializable
+from davidkhala.syntax.js import Array
 
 
 class LanguageTestCase(unittest.TestCase):
-    def test_map(self):
+    def test_array(self):
         def sum(x, y):
             return x + y
 
-        # List of numbers
         numbers = Array([1, 2, 3, 4, 5])
 
-        # Use map to apply the function
         squared_numbers = numbers.map(lambda x: x ** 2)
 
-        # Use reduce to sum the squared numbers
         total_sum = squared_numbers.reduce(sum)
 
-        # Print the result
         self.assertEqual(total_sum, 55)
+
+        def f(value, i, _):
+            self.assertEqual(value, i + 1)
+
+        numbers.forEach(f)
 
     def test_class(self):
         class A:
@@ -71,12 +73,6 @@ class LanguageTestCase(unittest.TestCase):
             case _:
                 assert False
         """
-
-    def test_for_each(self):
-        def f(i, value):
-            self.assertEqual(value, i + 1)
-
-        for_each([1, 2, 3], f)
 
     def test_dict(self):
         key = "a"
