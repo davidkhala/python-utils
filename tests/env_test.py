@@ -2,6 +2,8 @@ import os
 import unittest
 from dotenv import load_dotenv
 
+from davidkhala.syntax.env import USER
+
 
 class EnvTestCase(unittest.TestCase):
     def test_load(self):
@@ -16,6 +18,8 @@ class EnvTestCase(unittest.TestCase):
         domain = os.getenv("domain")
 
         self.assertEqual(domain, "example.org")
+    def test_user(self):
+        self.assertEqual(USER, os.getlogin())
 
     def test_env_list_all(self):
         for name, value in os.environ.items():

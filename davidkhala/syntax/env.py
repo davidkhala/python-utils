@@ -1,5 +1,6 @@
 import os
 import platform
+from getpass import getuser
 from typing import Optional
 
 from packaging import version
@@ -10,6 +11,7 @@ APPDATA = {
     'Roaming': os.environ.get('APPDATA'),
     'Local': os.environ.get('LOCALAPPDATA')
 }
+USER = getuser()
 
 
 def python_paths(major: str, minor: str) -> Optional[dict]:
