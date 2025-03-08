@@ -14,7 +14,7 @@ def write(path: str, data):
 
 def write_json(data, name=None):
     if not name:
-        name = data.__str__()
+        name = str(data)
     if isinstance(data, Serializable):
         data = data.as_dict()
     write(f"{name}.json", JSONReadable(data))

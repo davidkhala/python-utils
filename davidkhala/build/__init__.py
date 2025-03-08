@@ -1,18 +1,16 @@
 import subprocess
 from subprocess import CompletedProcess
-from typing import Optional
 
 from davidkhala.syntax.fs import rm
 
 
 class Installer:
-    name: Optional[str] = None
-
     def __init__(self, default_directory: str, source_py: str):
         self.dist = default_directory  # directory for executable binary
         self.spec = default_directory  # directory for *.spec
         self.work = default_directory  # directory for build/
         self.file = source_py
+        self.name: str | None = None
 
     @property
     def name_options(self) -> list:

@@ -30,13 +30,28 @@ class LanguageTestCase(unittest.TestCase):
         numbers.forEach(f)
 
     def test_class(self):
+        """
+        Class Variables are shared among all instances of the class.
+        They are defined at the class level and are not tied to any specific instance.
+        """
+
         class A:
-            const = "value"
+            const = "value"  # This is Class Variable
 
         a = A()
         a.const = ""
         self.assertEqual(a.const, "")
         self.assertNotEqual(a.const, A.const)
+
+        class B:
+            const: str
+
+        B.const = "class"
+        b = B()
+        b.const = 'value'
+
+        self.assertEqual('value', b.const)
+        self.assertEqual('class', B.const)
 
     def test_type_of(self):
         self.assertEqual(type('123').__name__, 'str')
@@ -131,15 +146,12 @@ class FileTestCase(unittest.TestCase):
     def test_write_json(self):
         data = '.afda'
         fs.write_json(data)
-
+        from dataclasses import dataclass
+        @dataclass
         class S(Serializable):
-            def __str__(self):
-                return 's'
+            name: str = 'G'
 
-            def as_dict(self) -> dict:
-                return {"name": "G"}
-
-        fs.write_json(S())
+        fs.write_json(S(), 's')
 
 
 class JSONTest(unittest.TestCase):
