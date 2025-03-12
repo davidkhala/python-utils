@@ -2,6 +2,7 @@ import os
 import unittest
 from dotenv import load_dotenv
 
+from davidkhala.syntax import is_mac, is_linux, is_windows
 from davidkhala.syntax.env import USER
 
 
@@ -19,7 +20,16 @@ class EnvTestCase(unittest.TestCase):
 
         self.assertEqual(domain, "example.org")
     def test_user(self):
-        self.assertEqual(USER, os.getlogin())
+        if os.environ.get("CI") == "true":
+            if is_mac():
+                self.assertEqual('runner', USER)
+                self.assertEqual('root', os.getlogin())
+            elif is_linux():
+                self.assertRaisesRegex(OSError,r"\[Errno 25\] Inappropriate ioctl for device", os.getlogin)
+            elif is_windows():
+                self.assertEqual(USER, os.getlogin())
+        else:
+            self.assertEqual(USER, os.getlogin())
 
     def test_env_list_all(self):
         for name, value in os.environ.items():
