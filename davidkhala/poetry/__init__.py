@@ -3,6 +3,7 @@ import os
 from davidkhala.syntax import is_windows, is_linux, is_mac
 from davidkhala.syntax.env import APPDATA, python_paths
 from davidkhala.syntax.path import resolve, home_resolve
+from dotenv import dotenv_values, set_key
 
 
 def pyvenv_cfg_path():
@@ -32,7 +33,6 @@ def reconfigure_python(sem_ver: str):
         "command": _command,
     }
 
-    from dotenv import dotenv_values, set_key
     dotenv_values(_pyvenv_cfg_path)  # format validate purpose
 
     for key, value in target.items():
