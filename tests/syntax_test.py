@@ -111,6 +111,13 @@ class LanguageTestCase(unittest.TestCase):
         from typing import Generator
         self.assertIsInstance(sq, Generator)
 
+    def test_bool(self):
+        self.assertTrue(True == 1 and False == 0)
+        self.assertEqual(2, True + 1)
+        self.assertEqual(2, 1 + True)
+        self.assertEqual(1, 1 + False)
+        self.assertIsInstance(True, int)
+
 
 class PathTestCase(unittest.TestCase):
     def test_current_file(self):
