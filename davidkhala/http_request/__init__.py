@@ -19,16 +19,24 @@ def default_on_response(response: requests.Response) -> Optional[dict]:
 class Request:
     def __init__(self, url: str, auth: dict = None, on_response=default_on_response):
         self.url = url
+        self.options: dict = {
+            'headers': {}
+        }
         if auth is not None:
-            self.auth = HTTPBasicAuth(auth['username'], auth['password'])
+            bearer = auth.get('bearer')
+            if bearer is not None:
+                self.options['headers']['Authorization'] = f"Bearer {bearer}"
+                del auth['bearer']
+            else:
+                self.options['auth'] = HTTPBasicAuth(auth['username'], auth['password'])
         self.on_response = on_response
 
-    def get(self, params=None, **kwargs) -> dict:
-        kwargs.setdefault('auth', getattr(self, 'auth', None))
-        response = requests.get(self.url, params, **kwargs)
+    def get(self, params=None) -> dict:
+
+        response = requests.get(self.url, params, **self.options)
         return self.on_response(response)
 
-    def post(self, json=None, data=None, **kwargs) -> dict:
-        kwargs.setdefault('auth', getattr(self, 'auth', None))
-        response = requests.post(self.url, data, json, **kwargs)
+    def post(self, json=None, data=None) -> dict:
+
+        response = requests.post(self.url, data, json, **self.options)
         return self.on_response(response)
