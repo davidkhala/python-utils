@@ -8,8 +8,8 @@ http_bin = 'https://httpbin.org/'
 class TestHttpBin(unittest.TestCase):
     def test_your_ip(self):
         url = http_bin + 'ip'
-        request = Request(url)
-        response = request.get()
+        request = Request()
+        response = request.request(url, 'GET')
         print('Your IP is {0}'.format(response['origin']))
 
     def test_basic_auth(self):
@@ -21,8 +21,8 @@ class TestHttpBin(unittest.TestCase):
             'password': password
         }
 
-        request = Request(url, auth)
-        response = request.get()
+        request = Request(auth)
+        response = request.request(url, 'GET')
         assert response['authenticated'] == True
         assert response['user'] == username
 
@@ -32,23 +32,23 @@ class TestHttpBin(unittest.TestCase):
         auth = {
             'bearer': token
         }
-        request = Request(url, auth)
-        response = request.get()
+        request = Request(auth)
+        response = request.request(url, 'GET')
         assert response['authenticated'] == True
         assert response['token'] == token
 
     def test_get_with_load(self):
         url = http_bin + 'get'
-        request = Request(url)
+        request = Request()
         payload = {'things': 2, 'total': 25}
-        r = request.get(payload)
+        r = request.request(url, 'GET', payload)
         print(r)
 
     def test_post(self):
         url = http_bin + 'post'
-        request = Request(url)
+        request = Request()
         payload = {'username': 'Olivia', 'password': '123'}
-        r = request.post(payload)
+        r = request.request(url, 'POST', payload)
         print(r)
 
     def test_upload(self):
@@ -56,8 +56,8 @@ class TestHttpBin(unittest.TestCase):
 
         with open('tests/data/dummy.txt') as f:
             files = {'file': f.read()}
-        request = Request(url)
-        r = request.post(None, files)
+        request = Request()
+        r = request.request(url, 'POST', data=files)
         print(r)
 
 

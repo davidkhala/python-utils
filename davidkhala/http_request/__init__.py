@@ -17,26 +17,19 @@ def default_on_response(response: requests.Response) -> Optional[dict]:
 
 
 class Request:
-    def __init__(self, url: str, auth: dict = None, on_response=default_on_response):
-        self.url = url
-        self.options: dict = {
-            'headers': {}
-        }
+    def __init__(self, auth: dict = None, on_response=default_on_response):
+        self.options: dict = {"headers": {}}
         if auth is not None:
-            bearer = auth.get('bearer')
+            bearer = auth.get("bearer")
             if bearer is not None:
-                self.options['headers']['Authorization'] = f"Bearer {bearer}"
-                del auth['bearer']
+                self.options["headers"]["Authorization"] = f"Bearer {bearer}"
+                del auth["bearer"]
             else:
-                self.options['auth'] = HTTPBasicAuth(auth['username'], auth['password'])
+                self.options["auth"] = HTTPBasicAuth(auth["username"], auth["password"])
         self.on_response = on_response
 
-    def get(self, params=None) -> dict:
-
-        response = requests.get(self.url, params, **self.options)
-        return self.on_response(response)
-
-    def post(self, json=None, data=None) -> dict:
-
-        response = requests.post(self.url, data, json, **self.options)
+    def request(self, url, method: str, params=None, data=None, json=None) -> dict:
+        response = requests.request(
+            method, url, params=params, data=data, json=json, **self.options
+        )
         return self.on_response(response)
