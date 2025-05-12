@@ -19,3 +19,6 @@ class Array(list, Generic[ValueType]):
     def forEach(self, func: Callable[[ValueType, int, "Array"], None]):
         for index, value in enumerate(self):
             func(value, index, self)
+
+    def minus(self, array):
+        return [x for x in self if x not in array]
