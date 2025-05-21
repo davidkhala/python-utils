@@ -1,5 +1,5 @@
 .pytest_cache
 dist
-poetry.lock
+uv.lock
 .idea
 __pycache__
