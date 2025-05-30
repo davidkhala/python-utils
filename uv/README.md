@@ -12,6 +12,11 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 
 # usage
 `uv publish --token $pypi_token`
+- uv does not have equivalent to option [`--skip-existing`](https://github.com/astral-sh/uv/issues/7917)
+
+
+`uv sync --active [--all-extras]`
+- use `--active` to target the active (current) environment
 
 # migrate
 `uvx migrate-to-uv` support from `pip`, `poetry`, `pipenv`, `pip-tools`
