@@ -1,6 +1,10 @@
 on:
   workflow_dispatch:
   push:
+    tags:
+      - '*'
+
+
 name: publish
 jobs:
   package:
