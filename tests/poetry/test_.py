@@ -1,7 +1,7 @@
 import unittest
 
-from davidkhala.syntax import is_windows, is_linux, is_mac
 from davidkhala.poetry import reconfigure_python
+from davidkhala.syntax import is_windows, is_mac
 
 
 class ReconfigureTestCase(unittest.TestCase):

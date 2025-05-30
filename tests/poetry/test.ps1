@@ -1,6 +1,6 @@
-Describe "poetry.exe" {
+Describe "poetry-util.exe" {
     BeforeAll {
-        $cliPath = Resolve-Path "./dist/poetry.exe"
+        $cliPath = Resolve-Path "./dist/poetry-util.exe"
         Write-Host $cliPath
     }
     It "exist" {

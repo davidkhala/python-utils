@@ -9,7 +9,7 @@ i = Installer(os.path.join(_current, 'dist'), source)
 
 
 def build():
-    i.name = 'poetry'
+    i.name = 'poetry-util'
     r = i.build()
     print(" ".join(r.args)) # raw command
 

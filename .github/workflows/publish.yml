@@ -1,6 +1,6 @@
 on:
   workflow_dispatch:
-
+  push:
 name: publish
 jobs:
   package:
@@ -16,13 +16,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@main
-      - uses: davidkhala/poetry-buildpack@main
+      - uses: davidkhala/uv-buildpack@main
         with:
           working-directory: .
-      - run: poetry run build-poetry
+      - run: uv run build-poetry
         shell: bash
       - run: .\tests\poetry\test.ps1
       - uses: softprops/action-gh-release@master
         with:
-          files: dist/poetry.exe
+          files: dist/poetry-util.exe
           tag_name: poetry-util
