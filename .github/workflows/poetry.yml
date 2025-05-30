@@ -7,22 +7,29 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - run: ./poetry/admin.ps1 Install-Poetry
-      - run: |
-          & "$env:APPDATA\Python\Scripts\poetry" install --extras poetry
-      - run: |
-          & "$env:APPDATA\Python\Scripts\poetry" run python tests/poetry/test_.py
+      - uses: astral-sh/setup-uv@main
+        with:
+          version: 'latest'
+      - run: uv sync --extra poetry
+      - run: uv run python tests/poetry/test_.py
         
   ubuntu:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
       - run: ./poetry/admin.sh install
-      - run: poetry install --extras poetry
-      - run: poetry run python tests/poetry/test_.py
+      - uses: astral-sh/setup-uv@main
+        with:
+          version: 'latest'
+      - run: uv sync --extra poetry
+      - run: uv run python tests/poetry/test_.py
   mac:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@main
+      - uses: astral-sh/setup-uv@main
+        with:
+          version: 'latest'
       - run: curl -sSL https://install.python-poetry.org | python3 -
-      - run: poetry install --extras poetry
-      - run: poetry run python tests/poetry/test_.py
+      - run: uv sync --extra poetry
+      - run: uv run python tests/poetry/test_.py

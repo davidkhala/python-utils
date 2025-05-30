@@ -7,10 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - uses: snok/install-poetry@main
-      - run: poetry build
-      - run: poetry config http-basic.pypi __token__ ${{secrets.PYPI_TOKEN}}
-      - run: poetry publish --skip-existing
+      - uses: astral-sh/setup-uv@main
+        with:
+          version: 'latest'
+      - run: uv build
+      - run: uv publish --token ${{secrets.PYPI_TOKEN}}
   poetry-util:
     runs-on: windows-latest
     steps:

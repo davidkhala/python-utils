@@ -19,7 +19,6 @@ clean-poetry = "poetry:clean"
 [dependency-groups]
 dev = [
     "pytest",
-    "python-dotenv",
 ]
 
 [tool.hatch.build.targets.sdist]
