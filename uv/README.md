@@ -10,6 +10,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
+Prebuilt in container image `ghcr.io/astral-sh/uv:latest`
 # usage
 `uv publish --token $pypi_token`
 - uv does not have equivalent to option [`--skip-existing`](https://github.com/astral-sh/uv/issues/7917)
