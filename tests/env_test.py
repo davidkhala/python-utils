@@ -3,7 +3,7 @@ import unittest
 from dotenv import load_dotenv
 
 from davidkhala.syntax import is_mac, is_linux, is_windows
-from davidkhala.syntax.env import USER
+from davidkhala.syntax.env import USER, Version
 
 
 class EnvTestCase(unittest.TestCase):
@@ -19,13 +19,21 @@ class EnvTestCase(unittest.TestCase):
         domain = os.getenv("domain")
 
         self.assertEqual(domain, "example.org")
+
     def test_user(self):
         if os.environ.get("CI") == "true":
             if is_mac():
                 self.assertEqual('runner', USER)
                 self.assertEqual('root', os.getlogin())
             elif is_linux():
-                self.assertRaisesRegex(OSError,r"\[Errno 25\] Inappropriate ioctl for device", os.getlogin)
+                version = Version()
+
+                match version.minor:
+                    case '10':  # 3.10
+                        expectedError = r"\[Errno 25\] Inappropriate ioctl for device"
+                    case _:  # default
+                        expectedError = r"\[Errno -25\] Unknown error -25"
+                self.assertRaisesRegex(OSError, expectedError, os.getlogin)
             elif is_windows():
                 self.assertEqual(USER, os.getlogin())
         else:
@@ -38,7 +46,6 @@ class EnvTestCase(unittest.TestCase):
 
 class SystemTestCase(unittest.TestCase):
     def test_ls(self):
-
         import subprocess
 
         subprocess.run(["ls"])

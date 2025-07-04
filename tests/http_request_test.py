@@ -37,7 +37,7 @@ class TestHttpBin(unittest.TestCase):
         assert response['authenticated'] == True
         assert response['token'] == token
 
-    def test_get_with_load(self):
+    def test_get_with_query_params(self):
         url = http_bin + 'get'
         request = Request()
         payload = {'things': 2, 'total': 25}
