@@ -15,10 +15,10 @@ Prebuilt in container image `ghcr.io/astral-sh/uv:latest`
 `uv publish --token $pypi_token`
 - uv does not have equivalent to option [`--skip-existing`](https://github.com/astral-sh/uv/issues/7917)
 
-`uv sync --active [--all-extras]`
+`uv sync --active [--extra <extra-name>] [--all-extras]`
 - use `--active` to target the active (current) environment
 
-`uv add --optional <extra-name> <dependency>[ <dependency>...]`
+`uv add --optional <extra-name> <dependency>[ <dependency> ...]`
 - add several optional dependencies to group named as <extra-name>. When published, the group is considered as extra
 # migrate
 `uvx migrate-to-uv` support from `pip`, `poetry`, `pipenv`, `pip-tools`
