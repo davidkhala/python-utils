@@ -2,6 +2,7 @@ import os
 import re
 import unittest
 from enum import auto
+from ipaddress import IPv4Address
 from pathlib import Path
 
 from davidkhala.poetry import reconfigure_python
@@ -167,6 +168,14 @@ class JSONTest(unittest.TestCase):
         JSONReadable(['b', 'c'])
         JSONReadable("[]")
         fs.write('tests/artifacts/test.json', r)
+
+
+class NetworkTestcase(unittest.TestCase):
+    def test_ip(self):
+        from davidkhala.syntax.network import ip
+        self.assertNotEqual(ip, '127.0.0.1')
+        self.assertNotEqual(ip, 'localhost')
+        print('ip=', ip)
 
 
 class PackageTestCase(unittest.TestCase):
