@@ -5,7 +5,7 @@ from typing import Optional
 
 from packaging import version
 from davidkhala.syntax import is_windows, is_linux, is_mac
-from davidkhala.syntax.path import resolve
+from davidkhala.syntax.path import join
 
 APPDATA = {
     'Roaming': os.environ.get('APPDATA'),
@@ -16,23 +16,23 @@ USER = getuser()
 
 def python_paths(major: str, minor: str) -> Optional[dict]:
     if is_windows():
-        home = resolve(APPDATA['Local'], 'Programs', 'Python', f"Python{major}{minor}")
+        home = join(APPDATA['Local'], 'Programs', 'Python', f"Python{major}{minor}")
 
         return {
             'home': home,
-            'executable': resolve(home, 'python.exe'),
+            'executable': join(home, 'python.exe'),
         }
     elif is_linux():
         home = '/usr/bin'
         return {
             'home': home,
-            'executable': resolve(home, f"python{major}.{minor}"),
+            'executable': join(home, f"python{major}.{minor}"),
         }
     elif is_mac():
         home = f"/Library/Frameworks/Python.framework/Versions/{major}.{minor}/bin"
         return {
             "home": home,
-            "executable": resolve(home, f"python{major}.{minor}"),
+            "executable": join(home, f"python{major}.{minor}"),
         }
 
 

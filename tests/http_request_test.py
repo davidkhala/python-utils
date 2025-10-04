@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from davidkhala.http_request import Request
@@ -7,6 +8,8 @@ http_bin = 'https://httpbin.org/'
 
 class TestHttpBin(unittest.TestCase):
     def test_your_ip(self):
+        if os.environ.get("CI"):
+            self.skipTest("502 Bad Gateway in GitHub Runner")
         url = http_bin + 'ip'
         request = Request()
         response = request.request(url, 'GET')
@@ -38,6 +41,8 @@ class TestHttpBin(unittest.TestCase):
         assert response['token'] == token
 
     def test_get_with_query_params(self):
+        if os.environ.get("CI"):
+            self.skipTest("502 Bad Gateway in GitHub Runner")
         url = http_bin + 'get'
         request = Request()
         payload = {'things': 2, 'total': 25}

@@ -123,7 +123,8 @@ class LanguageTestCase(unittest.TestCase):
 class PathTestCase(unittest.TestCase):
     def test_current_file(self):
         self.assertIsInstance(__file__, str)
-        self.assertEqual(__file__, path.resolve(__file__))
+        self.assertEqual(__file__, path.join(__file__))
+        self.assertEqual(__file__, str(path.resolve(__file__)))
 
     def test_resolve(self):
 
