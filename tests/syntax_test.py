@@ -55,9 +55,9 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual('class', B.const)
 
     def test_type_of(self):
-        self.assertEqual(type('123').__name__, 'str')
-        self.assertEqual(type(123).__name__, 'int')
-        self.assertEqual(type(0.7).__name__, 'float')
+        self.assertIsInstance('123', str)
+        self.assertIsInstance(123, int)
+        self.assertIsInstance(0.7, float)
 
     def test_string_literal(self):
         project_id = 'davidkhala'
