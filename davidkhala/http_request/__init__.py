@@ -8,9 +8,9 @@ def default_on_response(response: requests.Response) -> Optional[dict]:
     """
     :param response:
     :return: the input response
-    :raise HTTPError: if status_code is not OK(200)
+    :raise HTTPError: if not response.ok
     """
-    if response.status_code != 200:
+    if not response.ok:
         response.raise_for_status()
     else:
         return response.json()
