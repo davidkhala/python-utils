@@ -2,8 +2,8 @@ import os
 import unittest
 from dotenv import load_dotenv
 
-from davidkhala.syntax import is_mac, is_linux, is_windows
-from davidkhala.syntax.env import USER, Version
+from davidkhala.utils.syntax import is_mac, is_linux, is_windows
+from davidkhala.utils.syntax.env import USER, Version
 
 
 class EnvTestCase(unittest.TestCase):
@@ -29,7 +29,7 @@ class EnvTestCase(unittest.TestCase):
                 version = Version()
 
                 match version.minor:
-                    case '10':  # 3.10
+                    case '10' | '11':
                         expectedError = r"\[Errno 25\] Inappropriate ioctl for device"
                     case _:  # default
                         expectedError = r"\[Errno -25\] Unknown error -25"
@@ -43,12 +43,12 @@ class EnvTestCase(unittest.TestCase):
         for name, value in os.environ.items():
             print("{0}: {1}".format(name, value))
 
+class PoetryTestCase(unittest.TestCase):
+    def test_reconfigure(self):
+        from davidkhala.utils.poetry import reconfigure_python
+        if is_windows() and not os.environ.get('ci'):
+            reconfigure_python('3.13.2')
 
-class SystemTestCase(unittest.TestCase):
-    def test_ls(self):
-        import subprocess
-
-        subprocess.run(["ls"])
 
 
 if __name__ == "__main__":

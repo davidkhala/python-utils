@@ -1,7 +1,6 @@
 import os
-from enum import Enum
-from typing import Callable, Iterable
 import platform
+from enum import Enum
 
 
 class Package:

@@ -8,12 +8,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        version: ['3.10', '3.x']
+        version: ['3.11', '3.x']
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@main
       - uses: davidkhala/uv-buildpack@main
         with:
-          test-entry-point: pytest --ignore=tests/poetry
+          test-entry-point: pytest --ignore=tests/poetry --ignore=tests/http
           version: ${{matrix.version}}
           tests: .

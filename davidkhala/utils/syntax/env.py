@@ -4,8 +4,8 @@ from getpass import getuser
 from typing import Optional
 
 from packaging import version
-from davidkhala.syntax import is_windows, is_linux, is_mac
-from davidkhala.syntax.path import join
+from davidkhala.utils.syntax import is_windows, is_linux, is_mac
+from davidkhala.utils.syntax.path import join
 
 APPDATA = {
     'Roaming': os.environ.get('APPDATA'),

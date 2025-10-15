@@ -1,7 +1,7 @@
 import unittest
 
-from davidkhala.sql import SQL
-from davidkhala.syntax import fs
+from davidkhala.utils.sql import SQL
+from davidkhala.utils.syntax import fs
 
 
 class SQLParseTestCase(unittest.TestCase):

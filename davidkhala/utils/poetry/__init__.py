@@ -1,8 +1,8 @@
 import os
 
-from davidkhala.syntax import is_windows, is_linux, is_mac
-from davidkhala.syntax.env import APPDATA, python_paths
-from davidkhala.syntax.path import join, home_resolve
+from davidkhala.utils.syntax import is_windows, is_linux, is_mac
+from davidkhala.utils.syntax.env import APPDATA, python_paths
+from davidkhala.utils.syntax.path import join, home_resolve
 from dotenv import dotenv_values, set_key
 
 

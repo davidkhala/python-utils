@@ -1,7 +1,7 @@
 import subprocess
 from subprocess import CompletedProcess
 
-from davidkhala.syntax.fs import rm
+from davidkhala.utils.syntax.fs import rm
 
 
 class Installer:

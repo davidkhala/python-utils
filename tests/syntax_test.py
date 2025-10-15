@@ -5,10 +5,12 @@ from enum import auto
 from pathlib import Path
 
 
-from davidkhala.syntax import Package, NameEnum, fs, path, is_windows
-from davidkhala.syntax.format import JSONReadable
-from davidkhala.syntax.interface import Serializable
-from davidkhala.syntax.js import Array
+from davidkhala.utils.syntax import Package, NameEnum, fs, path, is_windows
+from davidkhala.utils.syntax.format import JSONReadable
+from davidkhala.utils.syntax.interface import Serializable
+from davidkhala.utils.syntax.js import Array
+from davidkhala.utils.syntax.env import Version
+from davidkhala.utils.syntax.network import ip
 
 
 class LanguageTestCase(unittest.TestCase):
@@ -99,7 +101,7 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(_dict[("%s" % key)], "b")
 
     def test_version(self):
-        from davidkhala.syntax.env import Version
+
         import sys
         v = Version()
         self.assertEqual(str(sys.version_info.major), v.major)
@@ -117,7 +119,10 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(2, 1 + True)
         self.assertEqual(1, 1 + False)
         self.assertIsInstance(True, int)
+    def test_subprocess(self):
+        import subprocess
 
+        subprocess.run(["ls"])
 
 class PathTestCase(unittest.TestCase):
     def test_current_file(self):
@@ -134,10 +139,6 @@ class PathTestCase(unittest.TestCase):
             print('APPDATA=', os.environ.get('APPDATA'))
             print('LocalAppData=', os.environ.get('LOCALAPPDATA'))
 
-    def test_poetry(self):
-        from davidkhala.poetry import reconfigure_python
-        if is_windows() and not os.environ.get('ci'):
-            reconfigure_python('3.13.2')
 
 
 class FileTestCase(unittest.TestCase):
@@ -173,7 +174,7 @@ class JSONTest(unittest.TestCase):
 
 class NetworkTestcase(unittest.TestCase):
     def test_ip(self):
-        from davidkhala.syntax.network import ip
+
         self.assertNotEqual(ip, '127.0.0.1')
         self.assertNotEqual(ip, 'localhost')
         print('ip=', ip)
@@ -187,11 +188,11 @@ class PackageTestCase(unittest.TestCase):
 
     def test_import(self):
         import importlib
-        from davidkhala.syntax import Package
-        _ = importlib.import_module('davidkhala.syntax')
+
+        _ = importlib.import_module('davidkhala.utils.syntax')
         self.assertEqual(_.Package, Package)
 
-from davidkhala.syntax.log import get_logger, LevelBasedStreamHandler, file_handler
+from davidkhala.utils.syntax.log import get_logger, LevelBasedStreamHandler, file_handler
 
 
 class LoggingTestCase(unittest.TestCase):
