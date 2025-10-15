@@ -2,10 +2,9 @@ import os
 import re
 import unittest
 from enum import auto
-from ipaddress import IPv4Address
 from pathlib import Path
 
-from davidkhala.poetry import reconfigure_python
+
 from davidkhala.syntax import Package, NameEnum, fs, path, is_windows
 from davidkhala.syntax.format import JSONReadable
 from davidkhala.syntax.interface import Serializable
@@ -136,6 +135,7 @@ class PathTestCase(unittest.TestCase):
             print('LocalAppData=', os.environ.get('LOCALAPPDATA'))
 
     def test_poetry(self):
+        from davidkhala.poetry import reconfigure_python
         if is_windows() and not os.environ.get('ci'):
             reconfigure_python('3.13.2')
 
@@ -191,6 +191,17 @@ class PackageTestCase(unittest.TestCase):
         _ = importlib.import_module('davidkhala.syntax')
         self.assertEqual(_.Package, Package)
 
+from davidkhala.syntax.log import get_logger, LevelBasedStreamHandler, file_handler
+
+
+class LoggingTestCase(unittest.TestCase):
+    def test_logging(self):
+        logger = get_logger()
+        logger.addHandler(LevelBasedStreamHandler())
+        logger.addHandler(file_handler('logs/test.log'))
+        logger.info('info')
+        logger.debug('debug')
+        logger.error('error')
 
 if __name__ == '__main__':
     unittest.main()
