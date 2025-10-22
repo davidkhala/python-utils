@@ -11,6 +11,7 @@ from davidkhala.utils.syntax.interface import Serializable
 from davidkhala.utils.syntax.js import Array
 from davidkhala.utils.syntax.env import Version
 from davidkhala.utils.syntax.network import ip
+from davidkhala.utils.syntax.time import runtime_of
 
 
 class LanguageTestCase(unittest.TestCase):
@@ -179,6 +180,13 @@ class NetworkTestcase(unittest.TestCase):
         self.assertNotEqual(ip, 'localhost')
         print('ip=', ip)
 
+class TimeTestcase(unittest.TestCase):
+    def test_runtime(self):
+        def func():
+            import time
+            time.sleep(1)
+        t,_ = runtime_of(func)
+        self.assertGreater(t, 1.0)
 
 class PackageTestCase(unittest.TestCase):
     def test_name(self):
