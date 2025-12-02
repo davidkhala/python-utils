@@ -1,18 +1,7 @@
-def build_url(domain, port, username, password, protocol="https") -> str:
-    endpoint = domain
-    if port is not None:
-        endpoint = f"{domain}:{port}"
-
-    if password is None:
-        return f"{protocol}://{endpoint}"
-    else:
-        return f"{protocol}://{username}:{password}@{endpoint}"
-
+def build_url(domain, port=None, username=None, password=None, protocol="https") -> str:
+    endpoint = f"{domain}:{port}" if port else domain
+    auth = f"{username}:{password}@" if password else ""
+    return f"{protocol}://{auth}{endpoint}"
 
 def build(http, https) -> dict:
-    result = {}
-    if http is not None:
-        result['http'] = http
-    if https is not None:
-        result['https'] = https
-    return result
+    return {k: v for k, v in [('http', http), ('https', https)] if v is not None}

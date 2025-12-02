@@ -211,6 +211,12 @@ class LoggingTestCase(unittest.TestCase):
         logger.info('info')
         logger.debug('debug')
         logger.error('error')
+class ContextManagerTestCase(unittest.TestCase):
+    def __exit__(self, exc_type, exc_value, traceback):
+        print("退出上下文，若无异常，参数全None")
+        print("异常类型:", exc_type)
+        print("异常实例:", exc_value)
+        print("追踪信息:", traceback)
 
 if __name__ == '__main__':
     unittest.main()

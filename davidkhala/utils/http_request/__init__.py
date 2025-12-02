@@ -1,6 +1,7 @@
 from typing import Optional
 
 import requests
+from requests import Session
 from requests.auth import HTTPBasicAuth
 
 
@@ -26,10 +27,20 @@ class Request:
                 del auth["bearer"]
             else:
                 self.options["auth"] = HTTPBasicAuth(auth["username"], auth["password"])
+        self.session: Session | None = None
         self.on_response = on_response
+    def __enter__(self):
+        self.session = requests.Session()
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.session.close()
+        del self.session
 
     def request(self, url, method: str, params=None, data=None, json=None) -> dict:
-        response = requests.request(
-            method, url, params=params, data=data, json=json, **self.options
-        )
+        if self.session:
+            response = self.session.request(method, url, params=params, data=data, json=json, **self.options)
+        else:
+            response = requests.request(
+                method, url, params=params, data=data, json=json, **self.options
+            )
         return self.on_response(response)
