@@ -1,9 +1,9 @@
 import os
 import platform
 from getpass import getuser
-from typing import Optional
 
 from packaging import version
+
 from davidkhala.utils.syntax import is_windows, is_linux, is_mac
 from davidkhala.utils.syntax.path import join
 
@@ -14,7 +14,7 @@ APPDATA = {
 USER = getuser()
 
 
-def python_paths(major: str, minor: str) -> Optional[dict]:
+def python_paths(major: str, minor: str) -> dict | None:
     if is_windows():
         home = join(APPDATA['Local'], 'Programs', 'Python', f"Python{major}{minor}")
 

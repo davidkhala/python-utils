@@ -218,5 +218,11 @@ class ContextManagerTestCase(unittest.TestCase):
         print("异常实例:", exc_value)
         print("追踪信息:", traceback)
 
+class FunctionTestCase(unittest.TestCase):
+    def test_variadic_parameters(self):
+        def f(*data, option):
+            pass
+        f('a', option=True)
+
 if __name__ == '__main__':
     unittest.main()
