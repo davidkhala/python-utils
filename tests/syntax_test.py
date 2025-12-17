@@ -4,13 +4,11 @@ import unittest
 from enum import auto
 from pathlib import Path
 
-
-from davidkhala.utils.syntax import Package, NameEnum, fs, path, is_windows
-from davidkhala.utils.syntax.format import JSONReadable
+from davidkhala.utils.syntax import NameEnum, fs, path
+from davidkhala.utils.syntax.env import Version, is_windows
+from davidkhala.utils.syntax.format import JSONReadable, Package
 from davidkhala.utils.syntax.interface import Serializable
 from davidkhala.utils.syntax.js import Array
-from davidkhala.utils.syntax.env import Version
-from davidkhala.utils.syntax.network import ip
 from davidkhala.utils.syntax.time import runtime_of
 
 
@@ -124,7 +122,22 @@ class LanguageTestCase(unittest.TestCase):
         import subprocess
 
         subprocess.run(["ls"])
+    def test_context_manager(self):
+        class Context:
+            def __exit__(self, exc_type, exc_value, traceback):
+                print("退出上下文，若无异常，参数全None")
+                assert exc_type is None, "异常类型"
+                assert exc_value is None, "异常实例"
+                assert traceback is None, "追踪信息"
 
+        Context()
+
+    def test_decorator(self):
+        from davidkhala.utils.syntax.compat import deprecated
+        @deprecated("Use new_function() instead.")
+        def old_function():
+            return
+        old_function()
 class PathTestCase(unittest.TestCase):
     def test_current_file(self):
         self.assertIsInstance(__file__, str)
@@ -175,7 +188,7 @@ class JSONTest(unittest.TestCase):
 
 class NetworkTestcase(unittest.TestCase):
     def test_ip(self):
-
+        from davidkhala.utils.syntax.network import ip
         self.assertNotEqual(ip, '127.0.0.1')
         self.assertNotEqual(ip, 'localhost')
         print('ip=', ip)
@@ -197,7 +210,7 @@ class PackageTestCase(unittest.TestCase):
     def test_import(self):
         import importlib
 
-        _ = importlib.import_module('davidkhala.utils.syntax')
+        _ = importlib.import_module('davidkhala.utils.syntax.format')
         self.assertEqual(_.Package, Package)
 
 from davidkhala.utils.syntax.log import get_logger, LevelBasedStreamHandler, file_handler
@@ -211,12 +224,6 @@ class LoggingTestCase(unittest.TestCase):
         logger.info('info')
         logger.debug('debug')
         logger.error('error')
-class ContextManagerTestCase(unittest.TestCase):
-    def __exit__(self, exc_type, exc_value, traceback):
-        print("退出上下文，若无异常，参数全None")
-        print("异常类型:", exc_type)
-        print("异常实例:", exc_value)
-        print("追踪信息:", traceback)
 
 class FunctionTestCase(unittest.TestCase):
     def test_variadic_parameters(self):

@@ -4,7 +4,6 @@ from getpass import getuser
 
 from packaging import version
 
-from davidkhala.utils.syntax import is_windows, is_linux, is_mac
 from davidkhala.utils.syntax.path import join
 
 APPDATA = {
@@ -62,3 +61,15 @@ class Version:
         current_version = Version.sem_ver()
 
         return version.parse(current_version) < version.parse(target_version)
+
+
+def is_windows() -> bool:
+    return os.name == 'nt' or platform.system() == 'Windows'
+
+
+def is_linux() -> bool:
+    return platform.system() == 'Linux'
+
+
+def is_mac() -> bool:
+    return platform.system() == 'Darwin'

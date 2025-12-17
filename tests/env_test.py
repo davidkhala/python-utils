@@ -2,8 +2,7 @@ import os
 import unittest
 from dotenv import load_dotenv
 
-from davidkhala.utils.syntax import is_mac, is_linux, is_windows
-from davidkhala.utils.syntax.env import USER, Version
+from davidkhala.utils.syntax.env import USER, Version, is_windows, is_linux, is_mac
 
 
 class EnvTestCase(unittest.TestCase):
