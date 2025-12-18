@@ -5,8 +5,7 @@ from davidkhala.utils.http_request import Request
 
 http_bin = 'https://httpbin.org/'
 
-if not os.environ.get("CI"):
-    pass
+# should be skipped by --ignore
 
 class TestHttpBin(unittest.TestCase):
     def test_your_ip(self):

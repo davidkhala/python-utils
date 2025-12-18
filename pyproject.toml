@@ -3,7 +3,7 @@ name = "davidkhala.utils"
 version = "0.6.8"
 description = "@davidkhala/python-utils"
 authors = [{ name = "David Liu", email = "david-khala@hotmail.com" }]
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 readme = "README.md"
 
 [project.optional-dependencies]
