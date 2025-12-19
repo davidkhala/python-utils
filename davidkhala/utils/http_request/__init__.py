@@ -2,6 +2,8 @@ import requests
 from requests import Session
 from requests.auth import HTTPBasicAuth
 
+from davidkhala.utils.syntax.interface import ContextAware
+
 
 def default_on_response(response: requests.Response) -> dict | None:
     """
@@ -16,7 +18,7 @@ def default_on_response(response: requests.Response) -> dict | None:
         return response.raise_for_status()
 
 
-class Request:
+class Request(ContextAware):
     def __init__(self, auth: dict = None, on_response=default_on_response):
         self.options: dict = {"headers": {}}
         if auth is not None:
@@ -29,11 +31,11 @@ class Request:
         self.session: Session | None = None
         self.on_response = on_response
 
-    def __enter__(self):
+    def open(self)-> bool:
         self.session = requests.Session()
-        return self
+        return True
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def close(self):
         self.session.close()
         del self.session
 

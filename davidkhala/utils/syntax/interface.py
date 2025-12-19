@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any
 
@@ -24,3 +24,22 @@ class Delegate:
     def __getattr__(self, name):
         # Delegate unknown attributes/methods to the wrapped instance
         return getattr(self.client, name)
+
+
+class ContextAware(ABC):
+    """provide Context Management Protocol"""
+
+    def __enter__(self):
+        assert self.open(), f"{self.__class__.__name__}::open() failed"
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    @abstractmethod
+    def close(self):
+        ...
+
+    @abstractmethod
+    def open(self) -> bool:
+        ...
