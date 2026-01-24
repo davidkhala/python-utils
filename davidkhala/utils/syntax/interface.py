@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from typing import Any
+from typing import Any, Protocol
 
 
 class Serializable:
@@ -12,9 +11,8 @@ class Serializable:
         return str(vars(self))
 
 
-@dataclass
-class DataClass(ABC):
-    ...
+class SupportsClose(Protocol):
+    def close(self) -> None: ...
 
 
 class Delegate:
@@ -26,7 +24,7 @@ class Delegate:
         return getattr(self.client, name)
 
 
-class ContextAware(ABC):
+class ContextAware(ABC, SupportsClose):
     """provide Context Management Protocol"""
 
     def __enter__(self):
@@ -37,9 +35,4 @@ class ContextAware(ABC):
         self.close()
 
     @abstractmethod
-    def close(self):
-        ...
-
-    @abstractmethod
-    def open(self) -> bool:
-        ...
+    def open(self) -> bool: ...
