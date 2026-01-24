@@ -7,7 +7,7 @@ from pathlib import Path
 from davidkhala.utils.syntax import fs, path
 from davidkhala.utils.syntax.env import Version, is_windows
 from davidkhala.utils.syntax.format import JSONReadable, Package
-from davidkhala.utils.syntax.interface import Serializable
+from davidkhala.utils.syntax.interface import Serializable, SupportsClose, Closeable
 from davidkhala.utils.syntax.js import Array
 from davidkhala.utils.syntax.time import runtime_of
 from davidkhala.utils.syntax.typing import NameEnum
@@ -101,7 +101,6 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(_dict[("%s" % key)], "b")
 
     def test_version(self):
-
         import sys
         v = Version()
         self.assertEqual(str(sys.version_info.major), v.major)
@@ -119,10 +118,12 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(2, 1 + True)
         self.assertEqual(1, 1 + False)
         self.assertIsInstance(True, int)
+
     def test_subprocess(self):
         import subprocess
 
         subprocess.run(["ls"])
+
     def test_context_manager(self):
         class Context:
             def __exit__(self, exc_type, exc_value, traceback):
@@ -133,12 +134,29 @@ class LanguageTestCase(unittest.TestCase):
 
         Context()
 
+    def test_close_wrapper(self):
+        from contextlib import closing
+        class O(SupportsClose):
+            ...
+
+        with closing(O()) as o:
+            ...
+
+        class O2(Closeable):
+            ...
+
+        with O2().context as o2:
+            ...
+
     def test_decorator(self):
         from davidkhala.utils.syntax.compat import deprecated
         @deprecated("Use new_function() instead.")
         def old_function():
             return
+
         old_function()
+
+
 class PathTestCase(unittest.TestCase):
     def test_current_file(self):
         self.assertIsInstance(__file__, str)
@@ -146,14 +164,12 @@ class PathTestCase(unittest.TestCase):
         self.assertEqual(__file__, str(path.resolve(__file__)))
 
     def test_resolve(self):
-
         self.assertEqual(str(Path.home()), path.homedir())
 
         print("\n", path.home_resolve('.databrickscfg'))
         if is_windows():
             print('APPDATA=', os.environ.get('APPDATA'))
             print('LocalAppData=', os.environ.get('LOCALAPPDATA'))
-
 
 
 class FileTestCase(unittest.TestCase):
@@ -194,13 +210,16 @@ class NetworkTestcase(unittest.TestCase):
         self.assertNotEqual(ip, 'localhost')
         print('ip=', ip)
 
+
 class TimeTestcase(unittest.TestCase):
     def test_runtime(self):
         def func():
             import time
             time.sleep(1)
-        t,_ = runtime_of(func)
+
+        t, _ = runtime_of(func)
         self.assertGreater(t, 1.0)
+
 
 class PackageTestCase(unittest.TestCase):
     def test_name(self):
@@ -214,6 +233,7 @@ class PackageTestCase(unittest.TestCase):
         _ = importlib.import_module('davidkhala.utils.syntax.format')
         self.assertEqual(_.Package, Package)
 
+
 from davidkhala.utils.syntax.log import get_logger, LevelBasedStreamHandler, file_handler
 
 
@@ -226,11 +246,14 @@ class LoggingTestCase(unittest.TestCase):
         logger.debug('debug')
         logger.error('error')
 
+
 class FunctionTestCase(unittest.TestCase):
     def test_variadic_parameters(self):
         def f(*data, option):
             pass
+
         f('a', option=True)
+
 
 if __name__ == '__main__':
     unittest.main()

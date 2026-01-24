@@ -1,3 +1,4 @@
+import contextlib
 from abc import ABC, abstractmethod
 from typing import Any, Protocol
 
@@ -13,6 +14,12 @@ class Serializable:
 
 class SupportsClose(Protocol):
     def close(self) -> None: ...
+
+
+class Closeable(SupportsClose):
+    @property
+    def context(self):
+        return contextlib.closing(self)
 
 
 class Delegate:
