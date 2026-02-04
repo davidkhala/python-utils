@@ -31,7 +31,7 @@ class Request(ContextAware):
         self.session: Session | None = None
         self.on_response = on_response
 
-    def open(self)-> bool:
+    def open(self) -> bool:
         self.session = requests.Session()
         return True
 

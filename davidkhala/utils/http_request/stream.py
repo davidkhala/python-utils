@@ -1,5 +1,5 @@
 import requests
-from typing import Generator
+from typing import Generator, Callable
 import json
 
 from requests import Session
@@ -7,8 +7,17 @@ from requests import Session
 from davidkhala.utils.http_request import Request as SessionRequest
 
 
-def as_sse(response: requests.Response) -> Generator[dict, None, None]:
-    return (json.loads(line[5:].decode()) for line in response.iter_lines() if line)
+def sse_default_filter(line: bytes) -> bool:
+    return line and line != b'event: ping'
+
+
+def as_sse(
+        response: requests.Response,
+        _filter: Callable[[bytes], bool] = sse_default_filter
+) -> Generator[dict, None, None]:
+    for line in response.iter_lines():
+        if _filter(line):
+            yield json.loads(line[5:].decode())
 
 
 class Request:
