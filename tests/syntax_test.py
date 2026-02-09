@@ -80,16 +80,14 @@ class LanguageTestCase(unittest.TestCase):
         self.assertEqual(Ordinal.NORTH.value, 'NORTH')
 
     def test_switch(self):
-        """
-        Added in python 3.10
+
         match 1:
             case 1:
-                return
+                ...
             case 2:
                 assert False
             case _:
                 assert False
-        """
 
     def test_dict(self):
         key = "a"
