@@ -1,4 +1,5 @@
-# python-utils
+# davidkhala.utils
+A Python utils collection
 
 
 
