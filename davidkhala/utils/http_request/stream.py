@@ -1,10 +1,10 @@
 import requests
 from typing import Generator, Callable
-import json
+from json import loads as json_loads
 
 from requests import Session
 
-from davidkhala.utils.http_request import Request as SessionRequest
+from davidkhala.utils.http_request import Request as SessionRequest, RequestProtocol
 
 
 def sse_default_filter(line: bytes) -> bool:
@@ -17,10 +17,10 @@ def as_sse(
 ) -> Generator[dict, None, None]:
     for line in response.iter_lines():
         if _filter(line):
-            yield json.loads(line[5:].decode())
+            yield json_loads(line[5:].decode())
 
 
-class Request:
+class Request(RequestProtocol):
     def __init__(self, borrow: SessionRequest):
         self.options: dict = borrow.options
         self.session: Session = borrow.session

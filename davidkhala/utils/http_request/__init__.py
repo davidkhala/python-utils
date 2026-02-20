@@ -1,3 +1,5 @@
+from typing import Protocol, Any
+
 import requests
 from requests import Session
 from requests.auth import HTTPBasicAuth
@@ -18,7 +20,11 @@ def default_on_response(response: requests.Response) -> dict | None:
         return response.raise_for_status()
 
 
-class Request(ContextAware):
+class RequestProtocol(Protocol):
+    def request(self, url, method: str, params=None, data=None, json=None) -> Any: ...
+
+
+class Request(ContextAware, RequestProtocol):
     def __init__(self, auth: dict = None, on_response=default_on_response):
         self.options: dict = {"headers": {}}
         if auth is not None:
