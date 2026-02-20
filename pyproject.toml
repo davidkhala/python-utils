@@ -1,6 +1,6 @@
 [project]
 name = "davidkhala.utils"
-version = "0.7.4"
+version = "0.7.5"
 description = "@davidkhala/python-utils"
 authors = [{ name = "David Liu", email = "david-khala@hotmail.com" }]
 requires-python = ">=3.10"

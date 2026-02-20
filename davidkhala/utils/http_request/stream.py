@@ -22,6 +22,7 @@ def as_sse(
 
 class Request:
     def __init__(self, borrow: SessionRequest):
+        super().__init__()
         self.options: dict = borrow.options
         self.session: Session = borrow.session
 

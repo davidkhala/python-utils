@@ -20,6 +20,7 @@ def default_on_response(response: requests.Response) -> dict | None:
 
 class Request(ContextAware):
     def __init__(self, auth: dict = None, on_response=default_on_response):
+        super().__init__()
         self.options: dict = {"headers": {}}
         if auth is not None:
             bearer = auth.get("bearer")
