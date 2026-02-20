@@ -1,5 +1,7 @@
-from typing import Protocol
+from typing import Protocol, Any
 
 
 class RequestProtocol(Protocol):
-    def request(self, url, method: str, params=None, data=None, json=None) -> Any: ...
+    def request(self, url, method: str, params: dict = None, data: dict = None, json: dict = None,
+                files: dict[str, tuple[str, ...]] = None
+                ) -> Any:...

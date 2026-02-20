@@ -4,7 +4,7 @@ from json import loads as json_loads
 
 from requests import Session
 
-from davidkhala.utils.http_request import Request as SessionRequest, RequestProtocol
+from davidkhala.utils.http_request import Request as SessionRequest
 
 
 def sse_default_filter(line: bytes) -> bool:
@@ -26,5 +26,10 @@ class Request:
         self.options: dict = borrow.options
         self.session: Session = borrow.session
 
-    def request(self, url, method: str, params=None, data=None, json=None) -> requests.Response:
-        return self.session.request(method, url, stream=True, params=params, data=data, json=json, **self.options)
+    def request(self, url, method: str, params: dict = None, data: dict = None, json: dict = None,
+                files: dict[str, tuple[str, ...]] = None
+                ) -> requests.Response:
+        return self.session.request(method, url,
+                                    params=params, data=data, json=json, files=files,
+                                    stream=True,
+                                    **self.options)

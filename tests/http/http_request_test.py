@@ -1,11 +1,9 @@
-import os
 import unittest
 
 from davidkhala.utils.http_request import Request
 
 http_bin = 'https://httpbin.org/'
 
-# should be skipped by --ignore
 
 class TestHttpBin(unittest.TestCase):
     def test_your_ip(self):
@@ -57,9 +55,9 @@ class TestHttpBin(unittest.TestCase):
         url = http_bin + 'post'
 
         with open('tests/data/dummy.txt') as f:
-            files = {'file': f.read()}
+            files = {'file': ('dummy.txt', f.read())}
         request = Request()
-        r = request.request(url, 'POST', data=files)
+        r = request.request(url, 'POST', files=files)
         print(r)
 
 

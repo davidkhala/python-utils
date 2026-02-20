@@ -37,14 +37,19 @@ class Request(ContextAware):
         return True
 
     def close(self):
-        self.session.close()
-        del self.session
-
-    def request(self, url, method: str, params=None, data=None, json=None) -> dict:
         if self.session:
-            response = self.session.request(method, url, params=params, data=data, json=json, **self.options)
+            self.session.close()
+            del self.session
+
+    def request(self, url, method: str, params: dict = None, data: dict = None, json: dict = None,
+                files: dict[str, tuple[str, ...]] = None
+                ) -> dict:
+        if self.session:
+            response = self.session.request(method, url,
+                                            params=params, data=data, json=json, files=files,
+                                            **self.options)
         else:
             response = requests.request(
-                method, url, params=params, data=data, json=json, **self.options
+                method, url, params=params, data=data, json=json, files=files, **self.options
             )
         return self.on_response(response)
