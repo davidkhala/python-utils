@@ -20,7 +20,7 @@ def as_sse(
             yield json_loads(line[5:].decode())
 
 
-class Request(RequestProtocol):
+class Request:
     def __init__(self, borrow: SessionRequest):
         self.options: dict = borrow.options
         self.session: Session = borrow.session

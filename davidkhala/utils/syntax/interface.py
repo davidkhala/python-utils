@@ -1,6 +1,6 @@
 import contextlib
 from abc import ABC, abstractmethod
-from typing import Any, Protocol
+from typing import Any
 
 
 class Serializable:
@@ -12,14 +12,13 @@ class Serializable:
         return str(vars(self))
 
 
-class SupportsClose(Protocol):
-    def close(self) -> None: ...
-
-
-class Closeable(SupportsClose):
+class Closeable(ABC):
     @property
     def context(self):
         return contextlib.closing(self)
+
+    @abstractmethod
+    def close(self) -> None: ...
 
 
 class Delegate:
@@ -31,7 +30,7 @@ class Delegate:
         return getattr(self.client, name)
 
 
-class ContextAware(ABC, SupportsClose):
+class ContextAware(Closeable):
     """provide Context Management Protocol"""
 
     def __enter__(self):

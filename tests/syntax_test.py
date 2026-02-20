@@ -7,7 +7,7 @@ from pathlib import Path
 from davidkhala.utils.syntax import fs, path
 from davidkhala.utils.syntax.env import Version, is_windows
 from davidkhala.utils.syntax.format import JSONReadable, Package
-from davidkhala.utils.syntax.interface import Serializable, SupportsClose, Closeable
+from davidkhala.utils.syntax.interface import Serializable, Closeable
 from davidkhala.utils.syntax.js import Array
 from davidkhala.utils.syntax.time import runtime_of
 from davidkhala.utils.syntax.typing import NameEnum
@@ -133,15 +133,10 @@ class LanguageTestCase(unittest.TestCase):
         Context()
 
     def test_close_wrapper(self):
-        from contextlib import closing
-        class O(SupportsClose):
-            ...
-
-        with closing(O()) as o:
-            ...
 
         class O2(Closeable):
-            ...
+            def close(self) -> None:
+                pass
 
         with O2().context as o2:
             ...
