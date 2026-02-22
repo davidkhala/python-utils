@@ -1,3 +1,5 @@
+from typing import Any
+
 import requests
 from requests import Session
 from requests.auth import HTTPBasicAuth
@@ -42,7 +44,7 @@ class Request(ContextAware):
             del self.session
 
     def request(self, url, method: str, params: dict = None, data: dict = None, json: dict = None,
-                files: dict[str, tuple[str, ...]] = None
+                files: dict[str, tuple[str, Any]] = None
                 ) -> dict:
         if self.session:
             response = self.session.request(method, url,
