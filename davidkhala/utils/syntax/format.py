@@ -1,6 +1,16 @@
 import base64
 import json
 from pathlib import Path
+from mimetypes import guess_type
+
+
+def mime_of(file: Path | str) -> str:
+    """
+    :param file: Path or url
+    """
+    mime, encoding = guess_type(file)
+    assert encoding in ['gzip', 'compress', 'bzip2', 'xz', 'br', 'zstd', None]
+    return mime
 
 
 def JSONReadable(data):
@@ -20,5 +30,5 @@ class Base64:
             return Base64.encode(f.read())
 
     @staticmethod
-    def encode(data:bytes):
+    def encode(data: bytes):
         return base64.b64encode(data).decode('utf-8')

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from davidkhala.utils.syntax import fs, path
 from davidkhala.utils.syntax.env import Version, is_windows
-from davidkhala.utils.syntax.format import JSONReadable, Package
+from davidkhala.utils.syntax.format import JSONReadable, Package, mime_of
 from davidkhala.utils.syntax.interface import Serializable, Closeable
 from davidkhala.utils.syntax.js import Array
 from davidkhala.utils.syntax.time import runtime_of
@@ -188,8 +188,12 @@ class FileTestCase(unittest.TestCase):
         fs.write_json(S(), 's')
 
 
-class JSONTest(unittest.TestCase):
-    def test_json(self):
+class FormatTest(unittest.TestCase):
+    def test_mime(self):
+        mime = mime_of('https://bitcoin.org/bitcoin.pdf')
+        self.assertEqual(mime, 'application/pdf')
+
+    def test_json_print(self):
         r = JSONReadable({'4': 5, '6': 7})
         JSONReadable(['b', 'c'])
         JSONReadable("[]")
