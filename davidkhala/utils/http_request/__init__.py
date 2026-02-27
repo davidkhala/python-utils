@@ -1,13 +1,12 @@
 from typing import Any
 
-import requests
-from requests import Session
+from requests import Session, Response, request
 from requests.auth import HTTPBasicAuth
 
 from davidkhala.utils.syntax.interface import ContextAware
 
 
-def default_on_response(response: requests.Response) -> dict | None:
+def default_on_response(response: Response) -> dict | None:
     """
     :param response:
     :return: the input response
@@ -18,6 +17,12 @@ def default_on_response(response: requests.Response) -> dict | None:
         return None
     else:
         return response.raise_for_status()
+
+
+def debug_on_response(response: Response) -> dict | None:
+    if not response.ok:
+        print(response.text)
+    return default_on_response(response)
 
 
 class Request(ContextAware):
@@ -35,7 +40,7 @@ class Request(ContextAware):
         self.on_response = on_response
 
     def open(self) -> bool:
-        self.session = requests.Session()
+        self.session = Session()
         return True
 
     def close(self):
@@ -51,7 +56,7 @@ class Request(ContextAware):
                                             params=params, data=data, json=json, files=files,
                                             **self.options)
         else:
-            response = requests.request(
+            response = request(
                 method, url, params=params, data=data, json=json, files=files, **self.options
             )
         return self.on_response(response)
