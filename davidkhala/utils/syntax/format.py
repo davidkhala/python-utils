@@ -32,3 +32,10 @@ class Base64:
     @staticmethod
     def encode(data: bytes):
         return base64.b64encode(data).decode('utf-8')
+
+
+def data_url_of(path: Path):
+    """
+    :return: base64 encoded file in a data URL (aka. Data URI). RFC 2397 standard format
+    """
+    return f"data:{mime_of(path)};base64,{Base64.encode_file(path)}"
