@@ -6,7 +6,7 @@ from requests.auth import HTTPBasicAuth
 from davidkhala.utils.syntax.interface import ContextAware
 
 
-def default_on_response(response: Response) -> dict | None:
+def default_on_response(response: Response) -> dict | list | None:
     """
     :param response:
     :return: the input response
@@ -16,10 +16,11 @@ def default_on_response(response: Response) -> dict | None:
         if response.text: return response.json()
         return None
     else:
-        return response.raise_for_status()
+        response.raise_for_status()
+        assert False  # dead code
 
 
-def debug_on_response(response: Response) -> dict | None:
+def debug_on_response(response: Response) -> dict | list | None:
     if not response.ok:
         print(response.text)
     return default_on_response(response)
@@ -32,12 +33,15 @@ class Request(ContextAware):
         if auth is not None:
             bearer = auth.get("bearer")
             if bearer is not None:
-                self.options["headers"]["Authorization"] = f"Bearer {bearer}"
+                self.set_bearer(bearer)
                 del auth["bearer"]
             else:
                 self.options["auth"] = HTTPBasicAuth(auth["username"], auth["password"])
         self.session: Session | None = None
         self.on_response = on_response
+
+    def set_bearer(self, token):
+        self.options["headers"]["Authorization"] = f"Bearer {token}"
 
     def open(self) -> bool:
         self.session = Session()
@@ -48,9 +52,12 @@ class Request(ContextAware):
             self.session.close()
             del self.session
 
-    def request(self, url, method: str, params: dict = None, data: dict = None, json: dict = None,
+    def request(self, url, method: str,
+                params: dict = None,
+                data: dict = None,  # for application/x-www-form-urlencoded
+                json: dict = None,
                 files: dict[str, tuple[str, Any]] = None
-                ) -> dict:
+                ) -> dict | list | None:
         if self.session:
             response = self.session.request(method, url,
                                             params=params, data=data, json=json, files=files,

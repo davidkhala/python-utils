@@ -24,6 +24,7 @@ class Request:
     def __init__(self, borrow: SessionRequest):
         super().__init__()
         self.options: dict = borrow.options
+        assert borrow.session is not None
         self.session: Session = borrow.session
 
     def request(self, url, method: str, params: dict = None, data: dict = None, json: dict = None,

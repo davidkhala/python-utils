@@ -2,7 +2,7 @@ import unittest
 
 from davidkhala.utils.http_request import Request
 
-http_bin = 'https://httpbin.org/'
+http_bin = 'https://httpbin-207043494928.asia-east2.run.app/'#  'https://httpbin.org/'
 
 
 class TestHttpBin(unittest.TestCase):
