@@ -1,14 +1,14 @@
-import requests
-from typing import Generator, Callable
 from json import loads as json_loads
+from typing import Generator, Callable
 
+import requests
 from requests import Session
 
-from davidkhala.utils.http_request import Request as SessionRequest
+from davidkhala.utils.http_request import Request as SessionRequest, FileLike, FileLikeWithName
 
 
 def sse_default_filter(line: bytes) -> bool:
-    return line and line != b'event: ping'
+    return bool(line) and line != b'event: ping'
 
 
 def as_sse(
@@ -27,8 +27,11 @@ class Request:
         assert borrow.session is not None
         self.session: Session = borrow.session
 
-    def request(self, url, method: str, params: dict = None, data: dict = None, json: dict = None,
-                files: dict[str, tuple[str, ...]] = None
+    def request(self, url, method: str,
+                params: dict | None = None,
+                data: dict | None = None,
+                json: dict | None = None,
+                files: dict[str, tuple[str, FileLike] | FileLikeWithName] | None = None
                 ) -> requests.Response:
         return self.session.request(method, url,
                                     params=params, data=data, json=json, files=files,

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Protocol
 
 from requests import Session, Response, request
 from requests.auth import HTTPBasicAuth
@@ -19,12 +19,10 @@ def default_on_response(response: Response) -> dict | list | None:
         response.raise_for_status()
         assert False  # dead code
 
-
-def debug_on_response(response: Response) -> dict | list | None:
-    if not response.ok:
-        print(response.text)
-    return default_on_response(response)
-
+class FileLike(Protocol):
+    def read(self, n: int = -1) -> bytes: ...
+class FileLikeWithName(FileLike, Protocol):
+    name: str
 
 class Request(ContextAware):
     def __init__(self, auth: dict = None, on_response=default_on_response):
@@ -53,11 +51,11 @@ class Request(ContextAware):
             del self.session
 
     def request(self, url, method: str,
-                params: dict = None,
-                data: dict = None,  # for application/x-www-form-urlencoded
-                json: dict = None,
-                files: dict[str, tuple[str, Any]] = None
-                ) -> dict | list | None:
+                params: dict | None = None,
+                data: dict | None = None,  # for application/x-www-form-urlencoded
+                json: dict | None = None,
+                files: dict[str, tuple[str, FileLike]|FileLikeWithName] | None = None
+                ) -> Any:
         if self.session:
             response = self.session.request(method, url,
                                             params=params, data=data, json=json, files=files,
