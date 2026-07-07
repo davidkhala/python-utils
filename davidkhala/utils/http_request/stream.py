@@ -1,5 +1,5 @@
 from json import loads as json_loads
-from typing import Generator, Callable
+from typing import Generator, Callable, Any
 
 import requests
 from requests import Session
@@ -31,7 +31,7 @@ class Request:
                 params: dict | None = None,
                 data: dict | None = None,
                 json: dict | None = None,
-                files: dict[str, tuple[str, FileLike] | FileLikeWithName] | None = None
+                files: dict[str, tuple[str, FileLike | Any] | FileLikeWithName | Any] | None = None
                 ) -> requests.Response:
         return self.session.request(method, url,
                                     params=params, data=data, json=json, files=files,

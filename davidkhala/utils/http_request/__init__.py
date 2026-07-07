@@ -21,7 +21,7 @@ def default_on_response(response: Response) -> dict | list | None:
 
 class FileLike(Protocol):
     def read(self, n: int = -1) -> bytes: ...
-class FileLikeWithName(FileLike, Protocol):
+class FileLikeWithName(FileLike):
     name: str
 
 class Request(ContextAware):
