@@ -1,14 +1,22 @@
+from _typeshed import FileDescriptorOrPath
+from os import PathLike
+from pathlib import Path
+
 from davidkhala.utils.syntax.format import JSONReadable
 from davidkhala.utils.syntax.interface import Serializable
 
 
-def read(path: str) -> str:
+def read(path: FileDescriptorOrPath) -> str:
     with open(path, encoding="utf-8") as file:
         return file.read()
 
 
-def write(path: str, data):
-    with open(path, mode='w') as file:
+def write(path: int | str | bytes | PathLike, data):
+    if not isinstance(path, int):
+        resolved = path.decode() if isinstance(path, bytes) else path
+        Path(resolved).parent.mkdir(parents=True, exist_ok=True)
+
+    with open(path, 'w') as file:
         return file.write(data)
 
 
