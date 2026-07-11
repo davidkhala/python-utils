@@ -173,6 +173,7 @@ class FileTestCase(unittest.TestCase):
     def test_write(self):
         fs.write('tests/data/.env', 'domain=example.org\n')
         fs.write('.noexist', '')
+        fs.write('tests/data/new-layer/.env', '') # auto mkdir
 
     def test_append(self):
         fs.append('tests/data/.env', 'Org=github\n')

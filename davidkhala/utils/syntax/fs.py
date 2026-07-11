@@ -1,4 +1,3 @@
-from _typeshed import FileDescriptorOrPath
 from os import PathLike
 from pathlib import Path
 
@@ -6,7 +5,7 @@ from davidkhala.utils.syntax.format import JSONReadable
 from davidkhala.utils.syntax.interface import Serializable
 
 
-def read(path: FileDescriptorOrPath) -> str:
+def read(path: int | str | bytes | PathLike) -> str:
     with open(path, encoding="utf-8") as file:
         return file.read()
 
