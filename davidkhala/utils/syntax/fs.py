@@ -6,7 +6,8 @@ from davidkhala.utils.syntax.format import JSONReadable
 from davidkhala.utils.syntax.interface import Serializable
 
 
-def read(path: int | str | bytes | PathLike, *,
+def read(path: int | str | bytes | PathLike,
+         *,
          mode: Literal['r', 'rb'] = 'r',
          encoding: str | None = None
          ) -> str | bytes:
