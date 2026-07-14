@@ -1,6 +1,6 @@
 [project]
 name = "davidkhala.utils"
-version = "0.8.2"
+version = "0.8.3"
 description = "@davidkhala/python-utils"
 authors = [{ name = "David Liu", email = "david-khala@hotmail.com" }]
 requires-python = ">=3.10"
@@ -12,7 +12,7 @@ geo = ['numpy']
 http_request = ["requests"]
 poetry = ["python-dotenv"]
 build = ["pyinstaller ; python_version < '3.14'"]
-
+api = ["fastapi"]
 [project.scripts]
 build-poetry = "poetry:build"
 clean-poetry = "poetry:clean"
