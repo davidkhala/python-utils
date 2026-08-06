@@ -19,7 +19,7 @@ clean-poetry = "poetry:clean"
 
 [dependency-groups]
 dev = [
-    "pytest", "pydantic"
+    "pytest", "pydantic","testcontainers"
 ]
 
 [tool.hatch.build.targets.sdist]
