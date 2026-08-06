@@ -19,20 +19,24 @@ def default_on_response(response: Response) -> dict | list | None:
         response.raise_for_status()
         assert False  # dead code
 
+
 class FileLike(Protocol):
     def read(self, n: int = -1) -> bytes: ...
+
+
 class FileLikeWithName(FileLike):
     name: str
 
+
 class Request(ContextAware):
-    def __init__(self, auth: dict = None, on_response=default_on_response):
+    def __init__(self, auth: dict | None = None, on_response=default_on_response):
         super().__init__()
         self.options: dict = {"headers": {}}
         if auth is not None:
             bearer = auth.get("bearer")
             if bearer is not None:
                 self.set_bearer(bearer)
-                del auth["bearer"]
+                auth["bearer"] = None
             else:
                 self.options["auth"] = HTTPBasicAuth(auth["username"], auth["password"])
         self.session: Session | None = None
@@ -48,13 +52,13 @@ class Request(ContextAware):
     def close(self):
         if self.session:
             self.session.close()
-            del self.session
+            self.session = None
 
     def request(self, url, method: str,
                 params: dict | None = None,
                 data: dict | None = None,  # for application/x-www-form-urlencoded
                 json: dict | None = None,
-                files: dict[str, tuple[str, FileLike]|FileLikeWithName] | None = None
+                files: dict[str, tuple[str, FileLike] | FileLikeWithName] | None = None
                 ) -> Any:
         if self.session:
             response = self.session.request(method, url,
