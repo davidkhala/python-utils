@@ -5,10 +5,13 @@
 ```shell
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
-
+On Windows
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
+
+upgrade by `uv self update`
+
 
 Prebuilt in container image `ghcr.io/astral-sh/uv:latest`
 # usage
