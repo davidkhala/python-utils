@@ -2,6 +2,7 @@ import base64
 import json
 from pathlib import Path
 from mimetypes import guess_type
+from typing import Literal
 
 
 def mime_of(file: Path | str) -> str:
@@ -33,6 +34,18 @@ class Base64:
     def encode(data: bytes):
         return base64.b64encode(data).decode('utf-8')
 
+
+def sniff_image_format(data: bytes) -> Literal["png", "jpeg", "gif", "webp", None]:
+    """Detect image format from magic bytes."""
+    if data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return "png"
+    if data.startswith(b"\xff\xd8\xff"):
+        return "jpeg"
+    if data.startswith((b"GIF87a", b"GIF89a")):
+        return "gif"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "webp"
+    return None
 
 def data_url_of(path: Path):
     """

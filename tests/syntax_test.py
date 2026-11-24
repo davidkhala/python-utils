@@ -6,7 +6,7 @@ from pathlib import Path
 
 from davidkhala.utils.syntax import fs, path
 from davidkhala.utils.syntax.env import Version, is_windows
-from davidkhala.utils.syntax.format import JSONReadable, Package, mime_of
+from davidkhala.utils.syntax.format import JSONReadable, Package, mime_of, sniff_image_format
 from davidkhala.utils.syntax.interface import Serializable, Closeable
 from davidkhala.utils.syntax.js import Array
 from davidkhala.utils.syntax.time import runtime_of
@@ -193,6 +193,20 @@ class FormatTest(unittest.TestCase):
     def test_mime(self):
         mime = mime_of('https://bitcoin.org/bitcoin.pdf')
         self.assertEqual(mime, 'application/pdf')
+
+    def test_sniff_image_format(self):
+        from requests import get
+        images = {
+            'png': 'https://www.gstatic.com/webp/gallery/1.png',
+            'jpeg': 'https://www.gstatic.com/webp/gallery/1.jpg',
+            'webp': 'https://www.gstatic.com/webp/gallery/1.webp',
+            'gif': 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif',
+        }
+        for expected, url in images.items():
+            with self.subTest(expected=expected):
+                response = get(url, headers={'User-Agent': 'python-utils-test/1.0'}, timeout=30)
+                response.raise_for_status()
+                self.assertEqual(expected, sniff_image_format(response.content))
 
     def test_json_print(self):
         r = JSONReadable({'4': 5, '6': 7})

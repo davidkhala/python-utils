@@ -28,10 +28,10 @@ class EnvTestCase(unittest.TestCase):
                 version = Version()
 
                 match version.minor:
-                    case '10' | '11':
-                        expectedError = r"\[Errno 25\] Inappropriate ioctl for device"
-                    case _:  # default
+                    case '12' | '13' | '14':
                         expectedError = r"\[Errno -25\] Unknown error -25"
+                    case _:  # default
+                        expectedError = r"\[Errno 25\] Inappropriate ioctl for device"
                 self.assertRaisesRegex(OSError, expectedError, os.getlogin)
             elif is_windows():
                 self.assertEqual(USER, os.getlogin())
